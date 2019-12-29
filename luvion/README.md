@@ -18,3 +18,13 @@ CLIENT_ID=123XX
 CLIENT_SECRET=456XX
 
 ```
+
+## Running the demo
+To run the demo, you will require NodeJS installed on your machine. Currently the app doesn't rely on any database or other external dependencies.
+```bash
+npm install
+npm run dev
+```
+
+Then you can access the site by hitting [http://localhost:8080](http://localhost:8080)
+

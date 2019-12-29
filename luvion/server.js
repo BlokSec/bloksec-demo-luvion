@@ -52,7 +52,7 @@ app.use(log4js.connectLogger(log, {
     { codes: [302, 303, 304], level: 'info' },
   ],
   format: (req, res, format) => format(':remote-addr - ":method :url" :status :content-length :response-time ms'),
-  nolog: ['\\/$','^/assets/.'],
+  nolog: ['\\/$', '^/assets/.'],
 }));
 
 app.use(favicon(path.join(__dirname, 'assets', 'img', 'favicon.png')));
@@ -89,9 +89,10 @@ oidc.on('error', err => {
 const publicRouter = require('./routes/public-routes');
 app.use(publicRouter);
 
-app.use((req, res, next) => {
+app.use((req, res) => {
   res.status(404).render('error-404');
-})
+});
+
 
 // ----------------------------------------------------------------
 // TODO - remote the stuff below this line or move it if we need it
@@ -131,7 +132,7 @@ function parseCode(code, res) {
 
 app.get('/registration_qr', setNoCache, (req, res) => {
   const { accountName } = req.query;
-  const { issuer, clientId, apiHost } = sampleConfig.oidc;
+  const { issuer, clientId, apiHost } = config.oidc;
   const issuerURL = new URL(issuer);
   const location = issuerURL.protocol + '//' + issuerURL.host;
   try {
