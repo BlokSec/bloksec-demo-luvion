@@ -7,8 +7,8 @@ const BASE_URL = process.env.BASE_URL || 'http://localhost:8080';
 const DISABLEHTTPSCHECK = process.env.DISABLEHTTPSCHECK ? true : false;
 
 console.info(`BASE_URL: '${BASE_URL}'`);
+console.info(`BLOKSEC_HOST': '${BLOKSEC_HOST}'`);
 console.info(`ISSUER: '${ISSUER}'`);
-console.info(`API_HOST': '${API_HOST}'`);
 console.info(`CLIENT_ID: '${CLIENT_ID}'`);
 console.info(`CLIENT_SECRET: '****${CLIENT_SECRET.substr(CLIENT_SECRET - 4, 4)}'`);
 

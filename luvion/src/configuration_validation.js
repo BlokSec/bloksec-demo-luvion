@@ -41,10 +41,10 @@ configUtil.assertIssuer = (issuer, testing = {}) => {
 
 
   if (!issuer) {
-    throw new ConfigurationValidationError('Your Okta URL is missing. ' + copyMessage);
+    throw new ConfigurationValidationError('Your BlokSec Host is missing. ' + copyMessage);
   } else if (!testing.disableHttpsCheck && !issuer.match(isHttps)) {
     throw new ConfigurationValidationError(
-      'Your Okta URL must start with https. ' +
+      'Your BlokSec Host must start with https. ' +
       `Current value: ${issuer}. ${copyMessage}`
     );
   } else if (issuer.match(/{yourOktaDomain}/)) {
