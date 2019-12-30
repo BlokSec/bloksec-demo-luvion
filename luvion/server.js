@@ -85,9 +85,12 @@ oidc.on('error', err => {
   throw err;
 });
 
-// Setup the routes to handle public and private pages
+// Setup the routes to handle public and protected pages
 const publicRouter = require('./routes/public-routes');
 app.use(publicRouter);
+
+const protectedRouter = require('./routes/protected-routes');
+app.use(protectedRouter);
 
 app.use((req, res) => {
   res.status(404).render('error-404');
