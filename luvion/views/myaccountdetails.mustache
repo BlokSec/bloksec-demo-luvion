@@ -31,6 +31,20 @@
         <title>Luvion - Online Banking & Payment Processing</title>
 
         <link rel="icon" type="image/png" href="assets/img/favicon.png">
+
+               <!--
+            Java Script added by Ketan to make the dates more dynamic 
+            for demo rather than showing old static dates in the table
+            for account summary.
+        -->
+        <script type='text/javascript'>
+            function datebackward(days){
+                var today = new Date();
+                var newdate = new Date();
+                newdate.setDate(today.getDate()-days);
+                document.write(newdate.toDateString());
+            }
+        </script>
     </head>
 
     <body>
@@ -113,67 +127,105 @@
                                 <th scope="col">Deposits</th>
                             </tr>
                         </thead>
-                        
+
+
+                         
                         <tbody>
                             <tr>
-                                <td>Jan 02, 2020</td>
+                                <td><script type='text/javascript'>
+                                    datebackward(1);
+                                     </script></td>
                                 <td>Perssonal Loan - SPL</td>
                                 <td>-$920.41</td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>Jan 02, 2020</td>
+                                <td><script type='text/javascript'>
+                                    datebackward(2);
+                                     </script></td>
                                 <td>Online Banking payment - 0247 - MasterCard</td>
                                 <td>-$1301.41</td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>Dec 26, 2019</td>
+                                <td><script type='text/javascript'>
+                                    datebackward(3);
+                                     </script></td>
                                 <td>Debit Card Purchase - BestBuy</td>
                                 <td>-$611.19</td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>Dec 26, 2019</td>
+                                <td><script type='text/javascript'>
+                                    datebackward(3);
+                                     </script></td>
                                 <td>Debit Card Purchase - Starbucks</td>
                                 <td>-$2.89</td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>Dec 26, 2019</td>
+                                <td><script type='text/javascript'>
+                                    datebackward(5);
+                                     </script></td>
                                 <td>Debit Card Purchase - Lou's Grocery</td>
                                 <td>-$68.77</td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>Dec 20, 2019</td>
+                                <td><script type='text/javascript'>
+                                    datebackward(5);
+                                     </script></td>
                                 <td>Debit Card Purchase - Michael Hill</td>
                                 <td>-$213.00</td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>Dec 18, 2019</td>
+                                <td><script type='text/javascript'>
+                                    datebackward(7);
+                                     </script></td>
                                 <td>Online Banking payment - 5206 - Durham-Water</td>
                                 <td>-$168.39</td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>Dec 16, 2019</td>
+                                <td><script type='text/javascript'>
+                                    datebackward(9);
+                                     </script></td>
                                 <td>e-Transfer Sent - Task9 Storage</td>
                                 <td>-$300.00</td>
                                 <td></td>
                             </tr>
                             <tr>
-                                <td>Dec 15, 2019</td>
+                                <td><script type='text/javascript'>
+                                    datebackward(11);
+                                     </script></td>
                                 <td>Deposit - BlokSec Technologies Inc.</td>
                                 <td></td>
                                 <td>$5169.21</td>
                             </tr>
                             <tr>
-                                <td>Dec 15, 2019</td>
+                                <td><script type='text/javascript'>
+                                    datebackward(11);
+                                     </script></td>
                                 <td>Debit Card Purchase - Starbucks</td>
                                 <td>-$2.89</td>
                                 <td></td>
+                            </tr>
+                            <tr>
+                                <td><script type='text/javascript'>
+                                    datebackward(12);
+                                     </script></td>
+                                <td>Online Banking payment - 5101 - Veridian Connections</td>
+                                <td>-$89.39</td>
+                                <td></td>
+                            </tr>
+                            <tr>
+                                <td><script type='text/javascript'>
+                                    datebackward(14);
+                                     </script></td>
+                                <td>e-Transfer Received - Kevin Smith</td>
+                                <td></td>
+                                <td>$354.35</td>
                             </tr>
                             <tr>
                                 <td></td>
