@@ -5224,6 +5224,35 @@ Login Area CSS
   border-color: #EA4335;
 }
 
+.login-content .login-form form .connect-with-social button.bloksec {
+  margin-top: 10px;
+  border-color: #3b3663;
+  color: #3b3663;
+}
+
+.login-content .login-form form .connect-with-social button.bloksec:hover {
+  background-color: #3b3663;
+  color: #ffffff;
+  border-color: #3b3663;
+}
+
+.login-content .login-form form .connect-with-social button.bloksec:hover div.bloksec-icon {
+  background-image: url("../img/bloksec-icon-white-sm.png");
+}
+
+.login-content .login-form form .connect-with-social button.bloksec div.bloksec-icon {
+  height: 22px;
+  width: 22px;
+  display: inline-block;
+  position: absolute;
+  top: 50%;
+  -webkit-transform: translateY(-50%);
+          transform: translateY(-50%);
+  background-image: url("../img/bloksec-icon-sm.png");
+  background-size: cover;
+}
+
+
 .login-content .login-form form .connect-with-social button:hover {
   background-color: #ee0979;
   color: #ffffff;

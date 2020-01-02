@@ -6,10 +6,10 @@
 
 const express = require('express');
 const session = require('express-session');
+const bodyParser = require('body-parser');
 const https = require('https');
 const http = require('http');
 const favicon = require('serve-favicon');
-const mustacheExpress = require('mustache-express');
 const path = require('path');
 const log4js = require('log4js');
 const ExpressOIDC = require('./src/ExpressOIDC');
@@ -30,18 +30,34 @@ const oidc = new ExpressOIDC(Object.assign({
 
 const app = express();
 
+// Disable caching
 function setNoCache(req, res, next) {
   res.set('Pragma', 'no-cache');
   res.set('Cache-Control', 'no-cache, no-store');
   next();
 }
 
+// Setup the session, using cookies
 app.use(session({
+  key: 'user_sid',
   secret: 'Now is the time for all good men to come to the aid of the party.',
-  resave: true,
-  saveUninitialized: false
+  resave: false,
+  saveUninitialized: false,
+  cookie: {
+    maxAge: 60000,
+  }
 }));
 
+// If we are in production, use secure cookies and trust the proxy
+if (app.get('env') === 'production') {
+  app.set('trust proxy', 1); // trust first proxy
+  session.cookie.secure = true; // serve secure cookies
+}
+
+// Body parser to read form-encoded posts
+app.use(bodyParser.urlencoded({ extended: true }));
+
+// Logging middleware
 const log = log4js.getLogger('server');
 log.level = 'debug';
 // see https://github.com/log4js-node/log4js-node/blob/master/docs/connect-logger.md
@@ -52,28 +68,39 @@ app.use(log4js.connectLogger(log, {
     { codes: [302, 303, 304], level: 'info' },
   ],
   format: (req, res, format) => format(':remote-addr - ":method :url" :status :content-length :response-time ms'),
-  nolog: ['\\/$', '^/assets/.'],
+  nolog: ['\\/$', '^/assets/.'], // don't log request for images, css, etc. nor root requests (AWS healt check spams our logs)
 }));
 
+// Favicon middleware
 app.use(favicon(path.join(__dirname, 'assets', 'img', 'favicon.png')));
 
-// Provide the configuration to the view layer because we show it on the homepage
-// TODO: remove the following displayConfig / oidcConfig stuff once we're not using it anymore
-const displayConfig = Object.assign(
-  {},
-  config.oidc,
-  {
-    clientSecret: '****' + config.oidc.clientSecret.substr(config.oidc.clientSecret.length - 4, 4)
+// This middleware will check if user's cookie is still saved in browser and user is not set, then automatically log the user out.
+// This usually happens when you stop your express server after login, your cookie still remains saved in the browser.
+app.use((req, res, next) => {
+  if (req.cookies && req.cookies.user_sid && !req.session.user) {
+    res.clearCookie('user_sid');
   }
-);
-app.locals.oidcConfig = displayConfig;
+  next();
+});
 
 // This server uses mustache templates located in views/ and public assets in assets/
 app.use('/assets', express.static(frontendDir));
-app.engine('mustache', mustacheExpress());
-app.set('view engine', 'mustache');
+app.use('/secure/assets', express.static(frontendDir));
+app.set('view engine', 'ejs');
 app.set('views', templateDir);
 
+// Setup the routes to handle public and protected pages
+const publicRouter = require('./routes/public-routes');
+app.use(publicRouter);
+
+const secureRouter = require('./routes/secure-routes');
+app.use(secureRouter);
+
+app.use((req, res) => {
+  res.status(404).render('error-404');
+});
+
+// setup the OIDC router to handle OpenID Connect client routes such as callbacks and logout requests
 app.use(oidc.router);
 
 oidc.on('ready', () => {
@@ -85,16 +112,7 @@ oidc.on('error', err => {
   throw err;
 });
 
-// Setup the routes to handle public and protected pages
-const publicRouter = require('./routes/public-routes');
-app.use(publicRouter);
 
-const protectedRouter = require('./routes/protected-routes');
-app.use(protectedRouter);
-
-app.use((req, res) => {
-  res.status(404).render('error-404');
-});
 
 
 // ----------------------------------------------------------------

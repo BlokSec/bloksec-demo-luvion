@@ -28,7 +28,7 @@ const pkg = require('../package.json');
  */
 let clientUserAgent = Issuer.defaultHttpOptions.headers['User-Agent'];
 if (typeof clientUserAgent === 'string' && clientUserAgent) {
-  clientUserAgent = ' ' + clientUserAgent.split(' ')[0]
+  clientUserAgent = ' ' + clientUserAgent.split(' ')[0];
 } else {
   clientUserAgent = '';
 }
@@ -52,19 +52,19 @@ oidcUtil.createClient = context => {
   Issuer.defaultHttpOptions.timeout = timeout || 10000;
 
   return Issuer.discover(issuer)
-  .then(iss => {
-    const client = new iss.Client({
-      client_id,
-      client_secret,
-      redirect_uris: [
-        redirect_uri
-      ]
+    .then(iss => {
+      const client = new iss.Client({
+        client_id,
+        client_secret,
+        redirect_uris: [
+          redirect_uri
+        ]
+      });
+
+      client.CLOCK_TOLERANCE = maxClockSkew;
+
+      return client;
     });
-
-    client.CLOCK_TOLERANCE = maxClockSkew;
-
-    return client;
-  });
 };
 
 oidcUtil.bootstrapPassportStrategy = context => {
@@ -75,12 +75,12 @@ oidcUtil.bootstrapPassportStrategy = context => {
     sessionKey: context.options.sessionKey,
     client: context.client
   }, (tokenSet, userinfo, done) => {
-    return tokenSet && userinfo
-      ? done(null, {
+    return tokenSet && userinfo ?
+      done(null, {
         userinfo: userinfo,
         tokens: tokenSet
-      })
-      : done(null);
+      }) :
+      done(null);
   });
 
   // bypass passport's serializers

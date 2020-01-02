@@ -1,11 +1,11 @@
 /**
  * This file defines routes for the status / public pages of the site
  */
-var express = require('express');
-var router = express.Router();
+const express = require('express');
+const ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
+const router = express.Router();
 
-
-router.get('/myaccountdetails.html', (req, res) => {
+router.get('/myaccountdetails.html', ensureLoggedIn(), (req, res) => {
   const userinfo = req.userContext && req.userContext.userinfo;
   res.render('myaccountdetails', {
     isLoggedIn: !!userinfo,
@@ -13,7 +13,7 @@ router.get('/myaccountdetails.html', (req, res) => {
   });
 });
 
-router.get('/mylandingpage.html', (req, res) => {
+router.get('/mylandingpage.html', ensureLoggedIn(), (req, res) => {
   const userinfo = req.userContext && req.userContext.userinfo;
   res.render('mylandingpage', {
     isLoggedIn: !!userinfo,
@@ -21,7 +21,7 @@ router.get('/mylandingpage.html', (req, res) => {
   });
 });
 
-router.get('/mytransferfunds.html', (req, res) => {
+router.get('/mytransferfunds.html', ensureLoggedIn(), (req, res) => {
   const userinfo = req.userContext && req.userContext.userinfo;
   res.render('mytransferfunds', {
     isLoggedIn: !!userinfo,
