@@ -4967,6 +4967,30 @@ FAQ Area CSS
 }
 
 /*================================================
+Password free image
+=================================================*/
+.pwdfree-image {
+    height: 100%;
+    width: 100%;
+    background-image: url("../img/pwdfree-pageimg.jpg");
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  
+  /*================================================
+  QrCode image
+  =================================================*/
+  .qrcode {
+    height: 100%;
+    width: 100%;
+    background-image: url("../img/qrcode.png");
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+
+/*================================================
 Login Area CSS
 =================================================*/
 .login-image {

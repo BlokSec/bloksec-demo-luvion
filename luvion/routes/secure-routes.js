@@ -29,4 +29,11 @@ router.get('/mytransferfunds.html', ensureLoggedIn('login.html'), (req, res) => 
   });
 });
 
+router.get('/passwordfree_setup.html', ensureLoggedIn('passwordfree_setup.html'), (req, res) => {
+  const userinfo = req.userContext && req.userContext.userinfo;
+  res.render('passwordfree_setup', {
+    isLoggedIn: !!userinfo,
+    userinfo: userinfo
+  });
+});
 module.exports = router;
