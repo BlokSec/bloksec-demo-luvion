@@ -13,27 +13,15 @@ const log = log4js.getLogger('server');
 log.level = 'debug';
 
 router.get('/myaccountdetails.html', ensureLoggedIn('login.html'), (req, res) => {
-  const userinfo = req.userContext && req.userContext.userinfo;
-  res.render('myaccountdetails', {
-    isLoggedIn: !!userinfo,
-    userinfo: userinfo
-  });
+  res.render('myaccountdetails');
 });
 
 router.get('/mylandingpage.html', ensureLoggedIn('login.html'), (req, res) => {
-  const userinfo = req.userContext && req.userContext.userinfo;
-  res.render('mylandingpage', {
-    isLoggedIn: !!userinfo,
-    userinfo: userinfo
-  });
+  res.render('mylandingpage');
 });
 
 router.get('/mytransferfunds.html', ensureLoggedIn('login.html'), (req, res) => {
-  const userinfo = req.userContext && req.userContext.userinfo;
-  res.render('mytransferfunds', {
-    isLoggedIn: !!userinfo,
-    userinfo: userinfo
-  });
+  res.render('mytransferfunds');
 });
 
 // Used for parsing the QR code generation response from the BlokSec API server
@@ -90,11 +78,10 @@ router.get('/registration_qr', (req, res) => {
 });
 
 router.get('/passwordfree-setup.html', ensureLoggedIn('login.html'), (req, res) => {
-  const userinfo = req.userContext && req.userContext.userinfo;
-  log.debug(userinfo);
+  const email = (req.userContext.userinfo ? req.userContext.userinfo.email : req.userContext);
+  log.debug(`User's email: ${email}`);
   res.render('passwordfree-setup', {
-    isLoggedIn: !!userinfo,
-    userinfo: userinfo
+    email: email
   });
 });
 

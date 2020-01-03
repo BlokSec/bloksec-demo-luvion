@@ -29,43 +29,23 @@ router.use(flash());
      
 // Index / home page route
 router.get(['/', '/index.html'], (req, res) => {
-  const userinfo = req.userContext && req.userContext.userinfo;
-  res.render('index', {
-    isLoggedIn: !!userinfo,
-    userinfo: userinfo
-  });
+  res.render('index');
 });
 
 router.get('/about.html', (req, res) => {
-  const userinfo = req.userContext && req.userContext.userinfo;
-  res.render('about', {
-    isLoggedIn: !!userinfo,
-    userinfo: userinfo
-  });
+  res.render('about');
 });
 
 router.get('/contact.html', (req, res) => {
-  const userinfo = req.userContext && req.userContext.userinfo;
-  res.render('contact', {
-    isLoggedIn: !!userinfo,
-    userinfo: userinfo
-  });
+  res.render('contact');
 });
 
 router.get('/features-1.html', (req, res) => {
-  const userinfo = req.userContext && req.userContext.userinfo;
-  res.render('features-1', {
-    isLoggedIn: !!userinfo,
-    userinfo: userinfo
-  });
+  res.render('features-1');
 });
 
 router.get('/features-2.html', (req, res) => {
-  const userinfo = req.userContext && req.userContext.userinfo;
-  res.render('features-2', {
-    isLoggedIn: !!userinfo,
-    userinfo: userinfo
-  });
+  res.render('features-2');
 });
 
 router.route(['/login.html'])
