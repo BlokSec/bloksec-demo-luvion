@@ -679,6 +679,9 @@ Navbar Area CSS
 }
 
 .luvion-nav .navbar .others-options .login-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
   color: #ffffff;
   font-size: 17px;
   font-weight: 400;

@@ -85,20 +85,8 @@ app.use((req, res, next) => {
 
 // This server uses mustache templates located in views/ and public assets in assets/
 app.use('/assets', express.static(frontendDir));
-app.use('/secure/assets', express.static(frontendDir));
 app.set('view engine', 'ejs');
 app.set('views', templateDir);
-
-// Setup the routes to handle public and protected pages
-const publicRouter = require('./routes/public-routes');
-app.use(publicRouter);
-
-const secureRouter = require('./routes/secure-routes');
-app.use(secureRouter);
-
-app.use((req, res) => {
-  res.status(404).render('error-404');
-});
 
 // setup the OIDC router to handle OpenID Connect client routes such as callbacks and logout requests
 app.use(oidc.router);
@@ -111,6 +99,18 @@ oidc.on('error', err => {
   // An error occurred with OIDC
   throw err;
 });
+
+// Setup the routes to handle public and protected pages
+const publicRouter = require('./routes/public-routes');
+app.use(publicRouter);
+
+const secureRouter = require('./routes/secure-routes');
+app.use(secureRouter);
+
+app.use((req, res) => {
+  res.status(404).render('error-404');
+});
+
 
 
 
@@ -169,16 +169,5 @@ app.get('/registration_qr', setNoCache, (req, res) => {
   } catch (error) {
     log.error(error);
   }
-});
-
-app.get('/profile', oidc.ensureAuthenticated(), (req, res) => {
-  // Convert the userinfo object into an attribute array, for rendering with mustache
-  const userinfo = req.userContext && req.userContext.userinfo;
-  const attributes = Object.entries(userinfo);
-  res.render('profile', {
-    isLoggedIn: !!userinfo,
-    userinfo: userinfo,
-    attributes
-  });
 });
 

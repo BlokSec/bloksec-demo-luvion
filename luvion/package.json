@@ -11,7 +11,7 @@
   "homepage": "https://bitbucket.org/bloksec/bloksec-demo-sites",
   "scripts": {
     "banners": "node tools/maintain-banners.js {custom-login,okta-hosted-login,resource-server,tools}/{*.js,**/*.js} ./*.js assets/css/samples.css",
-    "dev": "NODE_ENV='dev' DISABLEHTTPSCHECK=true CLIENT_ID=5da0d21204b8a8001092b2f8 CLIENT_SECRET=RTtB8Aj5itRfF8AbtjXTGpSdw4n6nRdFifcJHpdU BLOKSEC_HOST=sandbox.bloksec.io nodemon --inspect=127.0.0.1:9228 server.js",
+    "dev": "NODE_ENV='dev' DISABLEHTTPSCHECK=true nodemon --inspect=127.0.0.1:9228 server.js",
     "start": "node server.js"
   },
   "devDependencies": {
@@ -25,6 +25,7 @@
   "dependencies": {
     "@okta/jwt-verifier": "1.0.0",
     "@okta/oidc-middleware": "^2.0.0",
+    "axios": "^0.19.0",
     "body-parser": "^1.19.0",
     "colors": "^1.4.0",
     "connect-ensure-login": "^0.1.1",

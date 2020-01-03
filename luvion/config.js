@@ -1,8 +1,8 @@
 
 const BLOKSEC_HOST = process.env.BLOKSEC_HOST || 'http://localhost:3000';
 const ISSUER = process.env.ISSUER || `${BLOKSEC_HOST}/oidc`;
-const CLIENT_ID = process.env.CLIENT_ID || '{clientId}';
-const CLIENT_SECRET = process.env.CLIENT_SECRET || '{clientSecret}';
+const CLIENT_ID = process.env.CLIENT_ID || '5e0e60e900ab443b6a18149f';
+const CLIENT_SECRET = process.env.CLIENT_SECRET || 'RTtB8Aj5itRfF8AbsrgTGpSdw4n6nRdFifcJHpdU';
 const BASE_URL = process.env.BASE_URL || 'http://localhost:8080';
 const DISABLEHTTPSCHECK = process.env.DISABLEHTTPSCHECK ? true : false;
 

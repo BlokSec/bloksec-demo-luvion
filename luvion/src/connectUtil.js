@@ -76,7 +76,7 @@ connectUtil.createLoginHandler = context => {
           nonce,
           state
         };
-        const url = `${context.options.issuer}/v1/authorize?${querystring.stringify(params)}`;
+        const url = `${context.options.issuer}/auth?${querystring.stringify(params)}`;
         return res.redirect(url);
       });
     }
@@ -120,6 +120,7 @@ connectUtil.createLogoutHandler = context => logout.forceLogoutAndRevoke(context
 
 connectUtil.createLogoutCallbackHandler = context => {
   return (req, res) => {
+    console.log('logoutCallbackHandler invoked');
     if (req.session[context.options.sessionKey].state !== req.query.state) {
       context.emitter.emit('error', { type: 'logoutError', message: '\'state\' parameter did not match value in session' });
     } else {
