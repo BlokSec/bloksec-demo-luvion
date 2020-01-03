@@ -67,11 +67,11 @@
               <form method="POST">
                 <% if (messages.info) { %>
 
-                  <div class="alert alert-danger" role="alert">
-                    Error: <%= messages.info[0].message %>
-                  </div>
-    
-                  <% } %>
+                <div class="alert alert-danger" role="alert">
+                  Error: <%= messages.info[0].message %>
+                </div>
+
+                <% } %>
                 <div class="form-group">
                   <input type="email" name="email" id="email" placeholder="Your email address" class="form-control">
                 </div>
@@ -85,21 +85,24 @@
                 <div class="forgot-password">
                   <a href="#">Forgot Password?</a>
                 </div>
-
+              </form>
+              <form>
                 <div class="connect-with-social">
                   <button type="submit" class="facebook"><i class="fab fa-facebook-square"></i> Log in with
                     Facebook</button>
                   <button type="submit" class="google"><i class="fab fa-google"></i> Log in with Google</button>
-                  <button type="submit" class="bloksec"><i>
-                      <div class="bloksec-icon"></div>
-                    </i> Log in password-free with BlokSec</button>
-                </div>
               </form>
+              <form action="/login" style="margin-top: 0px">
+                <button type="submit" class="bloksec"><i>
+                    <div class="bloksec-icon"></div>
+                  </i> Log in password-free with BlokSec</button>
             </div>
+            </form>
           </div>
         </div>
       </div>
     </div>
+  </div>
   </div>
 </section>
 <!-- End Login Area -->

@@ -88,7 +88,7 @@ module.exports = class ExpressOIDC extends EventEmitter {
         },
         loginCallback: {
           path: '/authorization-code/callback',
-          afterCallback: '/'
+          afterCallback: '/mylandingpage.html'
         },
         logout: {
           path: '/logout'
