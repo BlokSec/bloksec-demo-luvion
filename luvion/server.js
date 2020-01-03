@@ -29,6 +29,7 @@ const oidc = new ExpressOIDC(Object.assign({
 }));
 
 const app = express();
+const expressWs = require('express-ws')(app);
 
 // Disable caching
 function setNoCache(req, res, next) {
@@ -41,7 +42,7 @@ function setNoCache(req, res, next) {
 app.use(session({
   key: 'user_sid',
   secret: 'Now is the time for all good men to come to the aid of the party.',
-  resave: false,
+  resave: true,
   saveUninitialized: false,
   cookie: {
     maxAge: 60000,

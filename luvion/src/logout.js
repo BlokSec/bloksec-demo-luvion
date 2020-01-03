@@ -53,10 +53,10 @@ logout.forceLogoutAndRevoke = function(context) {
   const revokeToken = makeTokenRevoker({ issuer, client_id, client_secret, errorHandler: makeErrorHandler(emitter) });
   return async (req, res, next) => { 
     console.log('test');
-    if (!req.userContext.tokens) {
+    if (!req.userContext || !req.userContext.tokens) {
       console.log('Logging user out');
       req.logout();
-      res.redirect('/');
+      return res.redirect('/');
     }
     const tokens = req.userContext.tokens;
     const revokeIfExists = token_hint => tokens[token_hint] ? revokeToken({token_hint, token: tokens[token_hint]}) : null;
