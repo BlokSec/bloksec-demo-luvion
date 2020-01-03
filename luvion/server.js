@@ -7,8 +7,6 @@
 const express = require('express');
 const session = require('express-session');
 const bodyParser = require('body-parser');
-const https = require('https');
-const http = require('http');
 const favicon = require('serve-favicon');
 const path = require('path');
 const log4js = require('log4js');
@@ -110,65 +108,5 @@ app.use(secureRouter);
 
 app.use((req, res) => {
   res.status(404).render('error-404');
-});
-
-
-
-
-
-// ----------------------------------------------------------------
-// TODO - remote the stuff below this line or move it if we need it
-// ----------------------------------------------------------------
-// Used for parsing the QR code generation response from the BlokSec API server
-function parseCode(code, res) {
-  const { statusCode } = code;
-  const contentType = code.headers['content-type'];
-
-  let error;
-  if (statusCode !== 200) {
-    error = new Error('Request Failed.\n' +
-      `Status Code: ${statusCode}`);
-  } else if (!/^image\/png/.test(contentType)) {
-    error = new Error('Invalid content-type.\n' +
-      `Expected image/png but received ${contentType}`);
-  }
-  if (error) {
-    log.error(error.message);
-    // Consume response data to free up memory
-    res.status(500).send(error.message);
-    return;
-  }
-
-  // https://github.com/Automattic/node-canvas/issues/138#issuecomment-194302434
-  var chunks = [];
-  code.on('data', function (chunk) {
-    chunks.push(chunk);
-  });
-
-  code.on('end', function () {
-    // https://github.com/expressjs/express/issues/732
-    res.contentType('image/png');
-    res.send(Buffer.concat(chunks));
-  });
-}
-
-app.get('/registration_qr', setNoCache, (req, res) => {
-  const { accountName } = req.query;
-  const { issuer, clientId, apiHost } = config.oidc;
-  const issuerURL = new URL(issuer);
-  const location = issuerURL.protocol + '//' + issuerURL.host;
-  try {
-    if (issuerURL.protocol === 'https:') {
-      https.get(`${location}/account/qr?clientId=${clientId}&accountName=${accountName}&address=${apiHost}`, (code) => {
-        parseCode(code, res);
-      });
-    } else {
-      http.get(`${location}/account/qr?clientId=${clientId}&accountName=${accountName}&address=${apiHost}`, (code) => {
-        parseCode(code, res);
-      });
-    }
-  } catch (error) {
-    log.error(error);
-  }
 });
 
