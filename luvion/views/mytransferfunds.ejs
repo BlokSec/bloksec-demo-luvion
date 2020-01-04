@@ -120,7 +120,7 @@
 
                             <div class="col-lg-6 col-md-12">
                                 <div class="money-transfer-form">
-                                    <form>
+                                    <form method="POST">
                                        <!-- <div class="form-group">
                                             <label>You Send</label>
                                             <div class="money-transfer-field">
@@ -145,7 +145,7 @@
                                                <!-- <input type="text" class="form-control" autocomplete="off" value="1,000">-->
 
                                                 <div class="amount-recepient-select">
-                                                    <select>
+                                                    <select name="recipient">
                                                         <option>Please select a recepient:</option>
                                                         <option>Lucy Smith - 700***6</option>
                                                         <option>Dad & Mom - 712***1</option>
@@ -165,10 +165,10 @@
                                         <div class="form-group">
                                             <label>Recipient gets</label>
                                             <div class="money-transfer-field">
-                                                <input type="text" class="form-control" autocomplete="off" value="">
+                                                <input name="amount" type="text" class="form-control" autocomplete="off" value="">
 
                                                 <div class="amount-currency-select">
-                                                    <select>
+                                                    <select name="currency">
                                                         <option>CAD</option>
                                                         <option>USD</option>
                                                         <option>GBP</option>

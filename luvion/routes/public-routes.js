@@ -48,7 +48,7 @@ router.get('/features-2.html', (req, res) => {
   res.render('features-2');
 });
 
-router.route(['/login.html'])
+router.route('/login.html')
   .get((req, res) => {
     res.render('login');
   })
