@@ -52,11 +52,11 @@ router.route('/mytransferfunds.html')
       var authCode = result.data.returnValues.authCode;
       if (authCode === '1') {
         log.debug('Authorization successful');
-        res.redirect('/mylandingpage.html');
+        return res.redirect('/mylandingpage.html');
       } else {
         log.debug('Login was not successful: authCode = ' + authCode);
         req.flash('info', 'Transaction was not authorized');
-        res.redirect('/mytransferfunds.html');
+        return res.redirect('/mytransferfunds.html');
       }
     } catch (err) {
       log.error('Error encoutered while invoking the BlokSec API:');
