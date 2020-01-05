@@ -42,9 +42,6 @@ app.use(session({
   secret: 'Now is the time for all good men to come to the aid of the party.',
   resave: true,
   saveUninitialized: false,
-  cookie: {
-    maxAge: 60000,
-  }
 }));
 
 // If we are in production, use secure cookies and trust the proxy

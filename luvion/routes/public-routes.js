@@ -58,6 +58,7 @@ router.route('/login.html')
       if (info) {
         console.log(info);
         req.flash('info', info);
+        req.session.save();
         return res.redirect('/login.html');
       }
       if (err) { return next(err); }
@@ -116,7 +117,9 @@ router.route('/login.html')
           console.log(err.response.status);
           console.log(err.response.headers);
           if (err.response.status === 404) {
-            res.redirect('/login/?result=2');
+            req.flash('info', { message: 'Invalid credentials.' });
+            req.session.save();
+            ws.send('/login.html'); 
             return;
           } else {
             next(err);
@@ -147,8 +150,10 @@ router.route(['/sign-up.html'])
     req.login(req.body.email, (err) => {
       if (err) { return next(err); }
       if (req.session.returnTo) {
+        req.session.save();
         res.redirect(req.session.returnTo);
       } else {
+        req.session.save();
         res.redirect('/mylandingpage.html');
       }
     });

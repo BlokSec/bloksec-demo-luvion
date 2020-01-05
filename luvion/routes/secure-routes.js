@@ -52,10 +52,12 @@ router.route('/mytransferfunds.html')
       var authCode = result.data.returnValues.authCode;
       if (authCode === '1') {
         log.debug('Authorization successful');
+        req.session.save();
         return res.redirect('/mylandingpage.html');
       } else {
         log.debug('Login was not successful: authCode = ' + authCode);
         req.flash('info', 'Transaction was not authorized');
+        req.session.save();
         return res.redirect('/mytransferfunds.html');
       }
     } catch (err) {
@@ -66,6 +68,7 @@ router.route('/mytransferfunds.html')
         log.error(err.response.status);
         log.error(err.response.headers);
         if (err.response.status === 404) {
+          req.session.save();
           res.redirect('/login/?result=2');
           return;
         } else {
