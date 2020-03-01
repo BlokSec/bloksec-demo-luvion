@@ -9,13 +9,13 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const favicon = require('serve-favicon');
 const path = require('path');
+const helmet = require('helmet');
 const log4js = require('log4js');
 const ExpressOIDC = require('./src/ExpressOIDC');
 const config = require('./config.js');
 
 const templateDir = path.join(__dirname, 'views');
 const frontendDir = path.join(__dirname, 'assets');
-
 
 const oidc = new ExpressOIDC(Object.assign({
   issuer: config.oidc.issuer,
@@ -36,6 +36,8 @@ function setNoCache(req, res, next) {
   next();
 }
 
+app.use(helmet());
+
 // Setup the session, using cookies
 app.use(session({
   key: 'user_sid',
@@ -47,7 +49,7 @@ app.use(session({
 // If we are in production, use secure cookies and trust the proxy
 if (app.get('env') === 'production') {
   app.set('trust proxy', 1); // trust first proxy
-  session.cookie.secure = true; // serve secure cookies
+  //sessionConfig.cookie.secure = true; // serve secure cookies
 }
 
 // Body parser to read form-encoded posts

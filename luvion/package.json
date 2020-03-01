@@ -37,6 +37,7 @@
     "express-flash": "0.0.2",
     "express-session": "^1.16.2",
     "express-ws": "^4.0.0",
+    "helmet": "^3.21.2",
     "http": "0.0.0",
     "https": "^1.0.0",
     "log4js": "^5.2.2",

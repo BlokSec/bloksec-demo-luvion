@@ -35,6 +35,7 @@ router.route('/mytransferfunds.html')
     log.debug(`User's email: ${email}`);
     try {
       const data = {
+        verifiation_prompt: 'Transfer Consent',
         clientId: config.oidc.clientId,
         accountName: email,
         requestSummary: 'Luvion Transfer Funds Request',
