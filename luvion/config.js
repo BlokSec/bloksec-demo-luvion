@@ -5,6 +5,7 @@ const CLIENT_ID = process.env.CLIENT_ID || '5e0e60e900ab443b6a18149f';
 const CLIENT_SECRET = process.env.CLIENT_SECRET || 'RTtB8Aj5itRfF8AbsrgTGpSdw4n6nRdFifcJHpdU';
 const BASE_URL = process.env.BASE_URL || 'http://localhost:8080';
 const DISABLEHTTPSCHECK = process.env.DISABLEHTTPSCHECK ? true : false;
+const AUTH_TOKEN = process.env.AUTH_TOKEN || '80b9d9d7-ab13-4e7c-82dc-53c87affe065';
 
 console.info(`BASE_URL: '${BASE_URL}'`);
 console.info(`BLOKSEC_HOST': '${BLOKSEC_HOST}'`);
@@ -24,5 +25,8 @@ module.exports = {
     testing: {
       disableHttpsCheck: DISABLEHTTPSCHECK
     }
+  },
+  secrets: {
+    authToken: AUTH_TOKEN,
   }
 };

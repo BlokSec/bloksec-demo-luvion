@@ -95,6 +95,7 @@ oidc.on('ready', () => {
 
 oidc.on('error', err => {
   // An error occurred with OIDC
+  log.error(`Could not connect to the OIDC provider at ${config.oidc.apiHost}, please ensure it is running and accessible`);
   throw err;
 });
 
