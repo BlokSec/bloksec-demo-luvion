@@ -27,14 +27,8 @@ const oidc = new ExpressOIDC(Object.assign({
 }));
 
 const app = express();
+// eslint-disable-next-line no-unused-vars
 const expressWs = require('express-ws')(app);
-
-// Disable caching
-function setNoCache(req, res, next) {
-  res.set('Pragma', 'no-cache');
-  res.set('Cache-Control', 'no-cache, no-store');
-  next();
-}
 
 app.use(helmet());
 

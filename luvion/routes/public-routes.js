@@ -10,7 +10,6 @@ const flash = require('express-flash');
 const router = express.Router();
 const axios = require('axios');
 const log4js = require('log4js');
-//const { authenticateUser } = require('../src/bloksecAuthenticator');
 const config = require('../config.js');
 
 const log = log4js.getLogger('public-routes');
@@ -127,7 +126,7 @@ router.ws('/interaction/updates', async (ws, req, next) => {
         nonce: Date.now().toString()
       };
 
-      const result = await axios.post('https://api.bloksec.io/auth', data);
+      const result = await axios.post(`${config.oidc.apiHost}/auth`, data);
       console.log(result.data);
       if (!result.data.returnValues) {
         throw 'Empty returnValues from BlokSec API'
@@ -194,21 +193,44 @@ router.route(['/sign-up.html'])
   .get((req, res) => {
     res.render('sign-up');
   })
-  .post((req, res, next) => {
-    console.log(req.body);
-    req.login(req.body.email, (err) => {
-      if (err) {
-        return next(err);
-      }
-      if (req.session.returnTo) {
-        req.session.save();
-        res.redirect(req.session.returnTo);
-      } else {
-        req.session.save();
-        res.redirect('/mylandingpage.html');
-      }
-    });
-  });
+  // POST to registration need to call the BlokSec /registration API
+  // Sample POST body:
+  // {
+  //   "auth_token": "59ea3453-185c-4555-92cf-b2a487f50d3d",
+  //   "user": {
+  //    "name": "Registration User01",
+  //    "email": "mike.gillan@gmail.com",
+  //    "mobile_number": "+19055550000"
+  //   },
+  //   "account": {
+  //     "name": "registration01@bloksec.com",
+  //     "client": "5d9b7f4002d9220011fc6d40"
+  //   }
+  // }
+  .post(async (req, res, next) => {
+    log.debug(req.body);
 
+    const data = {
+      auth_token: config.secrets.writeToken,
+      user: {
+        name: `${req.body.firstName} ${req.body.lastName}`,
+        //name: 'Mike Gillan',
+        email: req.body.email,
+        //email: 'mike.gillan@gmail.com',
+        mobile_number: req.body.mobile,
+        //mobile_number: '+19054849941',
+      },
+      account: {
+        name: req.body.username,
+        //name: 'mike.gillan_2020030101@gmail.com',
+        client: config.oidc.clientId,
+      },
+    }
+
+    log.debug(data);
+    const result = await axios.post(`${config.oidc.apiHost}/registration`, data);
+    log.debug(result);
+    res.render('sign-upsplash', { username: req.body.username });
+  });
 
 module.exports = router;

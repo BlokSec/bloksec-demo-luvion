@@ -63,17 +63,29 @@
                                     <h3>Open up your Luvion Account now</h3>
                                     <p>Already signed up? <a href="login.html">Log in</a></p>
 
-                                    <form method="POST">
-                                        <div class="form-group">
-                                            <input type="email" name="email" id="email" placeholder="Your email address" class="form-control">
-                                        </div>
-
-                                        <div class="form-group">
-                                            <input type="password" name="password" id="password" placeholder="Create a password" class="form-control">
-                                        </div>
-
-                                        <button type="submit" class="btn btn-primary">Sign Up</button>
-
+                                    <form method="POST" name="form" action="">
+                                        <div class="form-group"><input type="text" name="firstName" id="firstName" placeholder="First Name" placeholder="First Name" class="form-control"/></div>
+                                        <div class="form-group"><input type="text" name="lastName" id="lastName" placeholder="Last Name" onblur="
+                                       if(document.form.username.value=='' && document.form.firstName.value!='' && document.form.lastName.value!='') {
+                                             var username = '';
+                                             if(document.form.lastName.value.length >= 4) {
+                                                  username = document.form.firstName.value.substr(0,1) + document.form.lastName.value.substr(0,49);
+                                             } else {
+                                                  username = document.form.firstName.value.substr(0,4) + document.form.lastName.value.substr(0,49);
+                                             }
+                                             username = username.replace(/\s+/g, '');
+                                             username = username.replace(/\'+/g, '');
+                                             username = username.replace(/-+/g, '');
+                                             username = username.toLowerCase();
+                                             var day = new Date();
+                                             var month = new Date();
+                                             var min = new Date();
+                                             document.form.username.value = username+month.getMonth()+day.getDate()+min.getMinutes();
+                                        }" class="form-control"/></div>
+                                        <div class="form-group"><input type="text" name="username" id="username" placeholder="User Name" class="form-control" readonly="true"/></div>
+                                        <div class="form-group"><input type="email" name="email" id="email" placeholder="Email" class="form-control"/></div>
+                                        <div class="form-group"><input type="mobile" name="mobile" id="mobile" placeholder="Mobile Number" class="form-control" /></div>
+                                        <button type="submit" class="btn btn-primary">Sign Up</button>   
                                     </form>
                                 </div>
                             </div>
