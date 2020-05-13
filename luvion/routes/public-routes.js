@@ -17,10 +17,10 @@ log.level = 'debug';
 
 // configure passport.js to use the local strategy
 passport.use(new LocalStrategy({
-  usernameField: 'email'
-}, (email, password, done) => {
-  console.log(`${email}, ${password}`);
-  if (!email) {
+  usernameField: 'username'
+}, (username, password, done) => {
+  console.log(`${username}, ${password}`);
+  if (!username) {
     return done(null, false, {
       message: 'Invalid credentials.'
     });
@@ -30,7 +30,7 @@ passport.use(new LocalStrategy({
       message: 'Invalid credentials.'
     });
   }
-  return done(null, email);
+  return done(null, username);
 }));
 
 router.use(flash());
@@ -81,13 +81,14 @@ router.route('/login.html')
       // Here we need to lookup the user to see if they have BlokSec MFA enabled - call the /account/:clientId/:accountName to check
       var response;
       try {
-        log.debug(`Calling GET ${config.oidc.apiHost}/account/${config.oidc.clientId}/${req.body.email}`);
+        log.debug(`Calling PATCH ${config.oidc.apiHost}/account/${config.oidc.clientId}/${req.body.username}`);
         const data = {
-          auth_token: config.secrets.authToken,
+          auth_token: config.secrets.readToken,
         };
-        response = await axios.patch(`${config.oidc.apiHost}/account/${config.oidc.clientId}/${req.body.email}`, data);
+        log.debug(data);
+        response = await axios.patch(`${config.oidc.apiHost}/account/${config.oidc.clientId}/${req.body.username}`, data);
       } catch (error) {
-        log.error(error);
+        log.error(error.message);
         req.flash('info', error);
         req.session.save();
         return res.redirect('/login.html');
@@ -98,7 +99,7 @@ router.route('/login.html')
         res.render('mfasplash');
       } else {
         // user doesn't exist in BlokSec, just log them in
-        log.info(`No BlokSec account exists for ${req.body.email}, logging them in and redirecting to the landing page`);
+        log.info(`No BlokSec account exists for ${req.body.username}, logging them in and redirecting to the landing page`);
         req.login(user, (err) => {
           if (err) {
             return next(err);
@@ -214,16 +215,12 @@ router.route(['/sign-up.html'])
       auth_token: config.secrets.writeToken,
       user: {
         name: `${req.body.firstName} ${req.body.lastName}`,
-        //name: 'Mike Gillan',
         email: req.body.email,
-        //email: 'mike.gillan@gmail.com',
         mobile_number: req.body.mobile,
-        //mobile_number: '+19054849941',
       },
       account: {
         name: req.body.username,
-        //name: 'mike.gillan_2020030101@gmail.com',
-        client: config.oidc.clientId,
+        appId: config.oidc.clientId,
       },
     }
 

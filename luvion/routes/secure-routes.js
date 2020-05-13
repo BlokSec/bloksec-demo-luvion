@@ -11,7 +11,7 @@ const flash = require('express-flash');
 const axios = require('axios');
 const config = require('../config.js');
 // Logging middleware
-const log = log4js.getLogger('server');
+const log = log4js.getLogger('secure-routes');
 log.level = 'debug';
 
 router.use(flash());
@@ -35,7 +35,7 @@ router.route('/mytransferfunds.html')
     log.debug(`User's email: ${email}`);
     try {
       const data = {
-        verifiation_prompt: 'Transfer Consent',
+        verification_prompt: 'Transfer Funds Request',
         clientId: config.oidc.clientId,
         accountName: email,
         requestSummary: 'Luvion Transfer Funds Request',
@@ -43,7 +43,7 @@ router.route('/mytransferfunds.html')
         nonce: Date.now().toString()
       };
   
-      const result = await axios.post('https://api.bloksec.io/auth', data);
+      const result = await axios.post(`${config.oidc.apiHost}/auth`, data);
       log.debug(result.data);
       if (!result.data.returnValues) {
         throw 'Empty returnValues from BlokSec API'

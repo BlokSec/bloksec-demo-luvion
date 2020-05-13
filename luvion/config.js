@@ -1,8 +1,8 @@
 
 const BLOKSEC_HOST = process.env.BLOKSEC_HOST || 'http://localhost:3000';
 const ISSUER = process.env.ISSUER || `${BLOKSEC_HOST}/oidc`;
-const CLIENT_ID = process.env.CLIENT_ID || '5e0e60e900ab443b6a18149f';
-const CLIENT_SECRET = process.env.CLIENT_SECRET || 'RTtB8Aj5itRfF8AbsrgTGpSdw4n6nRdFifcJHpdU';
+const CLIENT_ID = process.env.CLIENT_ID || 'f935fdcd22f541abb684308fa3a679c5';
+const CLIENT_SECRET = process.env.CLIENT_SECRET || '03ee99faac974e259734f3832f3f85ae';
 const BASE_URL = process.env.BASE_URL || 'http://localhost:8080';
 const DISABLEHTTPSCHECK = process.env.DISABLEHTTPSCHECK ? true : false;
 const READ_TOKEN = process.env.READ_TOKEN || '80b9d9d7-ab13-4e7c-82dc-53c87affe065';
@@ -13,6 +13,9 @@ console.info(`BLOKSEC_HOST': '${BLOKSEC_HOST}'`);
 console.info(`ISSUER: '${ISSUER}'`);
 console.info(`CLIENT_ID: '${CLIENT_ID}'`);
 console.info(`CLIENT_SECRET: '****${CLIENT_SECRET.substr(CLIENT_SECRET - 4, 4)}'`);
+console.info(`READ_TOKEN: '${READ_TOKEN}'`);
+console.info(`WRITE_TOKEN: '****${WRITE_TOKEN.substr(WRITE_TOKEN -4, 4)}'`);
+
 
 module.exports = {
   port: 8080,
