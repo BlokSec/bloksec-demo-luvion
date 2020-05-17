@@ -122,11 +122,11 @@ router.get('/registration_qr', (req, res) => {
   const location = issuerURL.protocol + '//' + issuerURL.host;
   try {
     if (issuerURL.protocol === 'https:') {
-      https.get(`${location}/account/qr?clientId=${clientId}&accountName=${accountName}&address=${issuerURL.host}`, (code) => {
+      https.get(`${location}/account/qr?appId=${clientId}&accountName=${accountName}&address=${issuerURL.host}`, (code) => {
         parseCode(code, res);
       });
     } else {
-      http.get(`${location}/account/qr?clientId=${clientId}&accountName=${accountName}&address=${issuerURL.host}`, (code) => {
+      http.get(`${location}/account/qr?appId=${clientId}&accountName=${accountName}&address=${issuerURL.host}`, (code) => {
         parseCode(code, res);
       });
     }
