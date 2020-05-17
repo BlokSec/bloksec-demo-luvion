@@ -83,7 +83,7 @@ router.route('/login.html')
       try {
         log.debug(`Calling PATCH ${config.oidc.apiHost}/account/${config.oidc.clientId}/${req.body.username}`);
         const data = {
-          auth_token: config.secrets.readToken,
+          auth_token: config.secrets.writeToken,
         };
         log.debug(data);
         response = await axios.patch(`${config.oidc.apiHost}/account/${config.oidc.clientId}/${req.body.username}`, data);
