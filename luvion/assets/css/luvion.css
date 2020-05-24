@@ -1,0 +1,23 @@
+.status-container {
+  margin-top: 16px;
+  white-space: nowrap;
+}
+
+.status-subcontainer {
+  display: inline-block;
+  vertical-align: middle;
+  white-space: normal;
+}
+
+.status-subcontainer > p {
+  width: 75%;
+  white-space: normal;
+}
+
+.spinner {
+  height: 60px;
+}
+
+.hidden {
+  visibility: hidden;
+}

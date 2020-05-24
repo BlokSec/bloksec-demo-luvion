@@ -76,39 +76,40 @@ router.route('/login.html')
         log.warn(`passport authentication failed: No user object returned `)
         return res.redirect('/login.html');
       }
-      log.debug(`passpord authentication successful - user: ${user}`);
+      log.debug(`passport authentication successful - user: ${user}`);
       req.session.uid = user;
-      // Here we need to lookup the user to see if they have BlokSec MFA enabled - call the /account/:clientId/:accountName to check
+      // Here we need to lookup the user to see if they have BlokSec MFA enabled - call the /account/:appId/:accountName to check
       var response;
       try {
         log.debug(`Calling PATCH ${config.oidc.apiHost}/account/${config.oidc.clientId}/${req.body.username}`);
         const data = {
           auth_token: config.secrets.writeToken,
         };
-        log.debug(data);
         response = await axios.patch(`${config.oidc.apiHost}/account/${config.oidc.clientId}/${req.body.username}`, data);
       } catch (error) {
-        log.error(error.message);
-        req.flash('info', error);
-        req.session.save();
-        return res.redirect('/login.html');
+        if (error.response.status == 404) {
+          // user doesn't exist in BlokSec, just log them in
+          log.info(`No BlokSec account exists for ${req.body.username}, logging them in and redirecting to the landing page`);
+          req.login(user, (err) => {
+            if (err) {
+              return next(err);
+            }
+            // Have to save the session manually because Express only invokes it at the end of an HTTP response (which doesn't happen with WebSockets)
+            // See https://www.npmjs.com/package/express-session#sessionsavecallback
+            req.session.save();
+            return res.redirect('/mylandingpage.html');
+          });
+        } else {
+          log.error(error.message);
+          req.flash('info', error);
+          req.session.save();
+          return res.redirect('/login.html');
+        }
       }
       if (response && response.data) {
         // User exists in BlokSec - render the MFA splash to force them through MFA
         log.info(`Found account: ${util.inspect(response.data, { showHidden: false, depth: null })}`);
-        res.render('mfasplash');
-      } else {
-        // user doesn't exist in BlokSec, just log them in
-        log.info(`No BlokSec account exists for ${req.body.username}, logging them in and redirecting to the landing page`);
-        req.login(user, (err) => {
-          if (err) {
-            return next(err);
-          }
-          // Have to save the session manually because Express only invokes it at the end of an HTTP response (which doesn't happen with WebSockets)
-          // See https://www.npmjs.com/package/express-session#sessionsavecallback
-          req.session.save();
-          res.redirect('/mylandingpage.html');
-        });
+        return res.render('mfasplash');
       }
     })(req, res, next);
   });
@@ -120,7 +121,7 @@ router.ws('/interaction/updates', async (ws, req, next) => {
 
     try {
       const data = {
-        clientId: config.oidc.clientId,
+        appId: config.oidc.clientId,
         accountName: user,
         requestSummary: 'Luvion Authentication Request',
         requestDetails: `Please confirm that you are logging into Luvion as ${user}`,
@@ -227,7 +228,9 @@ router.route(['/sign-up.html'])
     log.debug(data);
     const result = await axios.post(`${config.oidc.apiHost}/registration`, data);
     log.debug(result);
-    res.render('sign-upsplash', { username: req.body.username });
+    res.render('sign-upsplash', {
+      username: req.body.username
+    });
   });
 
 module.exports = router;

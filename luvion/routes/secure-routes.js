@@ -24,7 +24,7 @@ router.get('/mylandingpage.html', ensureLoggedIn('login.html'), (req, res) => {
   res.render('mylandingpage');
 });
 
-router.route('/mytransferfunds.html')
+router.route('/mytransferfunds.html') 
   .get(ensureLoggedIn('login.html'), (req, res) => {
     res.render('mytransferfunds');
   })
@@ -36,7 +36,7 @@ router.route('/mytransferfunds.html')
     try {
       const data = {
         verification_prompt: 'Transfer Funds Request',
-        clientId: config.oidc.clientId,
+        appId: config.oidc.clientId,
         accountName: email,
         requestSummary: 'Luvion Transfer Funds Request',
         requestDetails: `Confirm transfer of ${transfer.amount} ${transfer.currency} to ${transfer.recipient}?`,
@@ -120,13 +120,15 @@ router.get('/registration_qr', (req, res) => {
   const { issuer, clientId, apiHost } = config.oidc;
   const issuerURL = new URL(issuer);
   const location = issuerURL.protocol + '//' + issuerURL.host;
+  const requestString = `${location}/account/qr?appId=${clientId}&accountName=${accountName}&address=${issuerURL.host}`;
+  log.debug(`QR code request string: '${requestString}'`);
   try {
     if (issuerURL.protocol === 'https:') {
-      https.get(`${location}/account/qr?appId=${clientId}&accountName=${accountName}&address=${issuerURL.host}`, (code) => {
+      https.get(requestString, (code) => {
         parseCode(code, res);
       });
     } else {
-      http.get(`${location}/account/qr?appId=${clientId}&accountName=${accountName}&address=${issuerURL.host}`, (code) => {
+      http.get(requestString, (code) => {
         parseCode(code, res);
       });
     }
