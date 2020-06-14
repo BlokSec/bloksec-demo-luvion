@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<!-- in views/users.ejs -->
+<html>
+
+<head>
+  <title>User Details</title>
+  <link rel="stylesheet" href="/assets/css/style.css" />
+</head>
+
+<body>
+  <div class="content">
+    <h1>Welcome <em><%= user.name %></em></h1>
+    <br />
+
+    <p>Here are your user details:</p>
+
+    <p>
+      <% Object.keys(user).forEach(function(item) { %>
+      <b><%- item %></b>: <%- JSON.stringify(user[item], null, 2) %>
+      <br />
+      <% }); %>
+    </p>
+
+    <form action="/logout">
+      <input type="submit" value="Logout">
+    </form>
+  </div>
+</body>
+
+</html>
