@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Sign up</title>
+    <link rel='stylesheet' href='/assets/css/style.css' />
+  </head>
+  <body>
+    <div class="content">
+      <h1>Thank you for signing up.</h1>
+
+      <p>
+          <h3>We have sent an email with instructions to activate your account.</h3>
+      </p>
+
+      <p>
+        <h5>Once you have activated your account with BlokSec, please sign in below.</h5>
+        <br>
+        <form action="/auth" style="margin-top: 0px">
+          <input type="hidden" id="login_hint" name="login_hint" value="<%=username%>">
+          <div class="connect-with-social">
+            <button type="submit" class="bloksec"><i>
+              </i> Log in password-free with BlokSec</button>
+          </div>
+        </form>
+      </p><br><br>
+      
+    </div>
+  </body>
+</html>
