@@ -2,9 +2,13 @@
   "name": "oidc-basic",
   "version": "1.0.0",
   "description": "Basic OIDC example for BlokSec",
+  "repository": {
+    "type": "git",
+    "url": "https://mgillan-bloksec@bitbucket.org/mgillan-bloksec/bloksec-demo-sites.git"
+  },
   "main": "server.js",
   "scripts": {
-    "dev": "NODE_ENV='dev' nodemon server.js",
+    "dev": "NODE_ENV='dev' BLOKSEC_HOST='http://localhost:3000' nodemon server.js",
     "start": "node server.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },

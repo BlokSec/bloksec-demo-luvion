@@ -1,5 +1,5 @@
 
-const BLOKSEC_HOST = process.env.BLOKSEC_HOST || 'http://localhost:3000';
+const BLOKSEC_HOST = process.env.BLOKSEC_HOST || 'https://api.bloksec.io';
 const ISSUER = process.env.ISSUER || `${BLOKSEC_HOST}/oidc`;
 const CLIENT_ID = process.env.CLIENT_ID || '7af3c5b2353d48e7838fb4e0cdabad85';
 const CLIENT_SECRET = process.env.CLIENT_SECRET || 'c43f66d1a0584537b4f24791981478de';

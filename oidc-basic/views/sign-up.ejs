@@ -6,7 +6,7 @@
   </head>
   <body>
     <div class="content">
-      <h1>Open your Account Now</h1>
+      <h1>Register for access</h1>
 
       <form method="POST" name="form" action="">
         <div class="form-group"><input type="text" name="firstName" id="firstName" placeholder="First Name" placeholder="First Name" class="form-control"/></div>
@@ -22,10 +22,8 @@
              username = username.replace(/\'+/g, '');
              username = username.replace(/-+/g, '');
              username = username.toLowerCase();
-             var day = new Date();
-             var month = new Date();
-             var min = new Date();
-             document.form.username.value = username+month.getMonth()+day.getDate()+min.getMinutes();
+             var date = new Date();
+             document.form.username.value = username+date.getMonth()+date.getDate()+date.getMinutes();
         }" class="form-control"/></div>
         <div class="form-group"><input type="text" name="username" id="username" placeholder="User Name" class="form-control" readonly="true"/></div>
         <div class="form-group"><input type="email" name="email" id="email" placeholder="Email" class="form-control"/></div>
