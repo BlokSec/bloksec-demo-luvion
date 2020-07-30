@@ -1943,7 +1943,7 @@ ul.bottom-links-agile li a {
     }
     .nav-icon {
         padding-top: 10px;
-        justify-content: center;
+        justify-content: left;
     }
     .banner-pos {
         right: 4%;
@@ -1982,3 +1982,75 @@ ul.bottom-links-agile li a {
 }
 
 /* -- //Responsive code -- */
+
+/* Dropdown Button */
+.dropbtn {
+    background-color: #d8e9fa;
+    color: white;
+    padding: 12px;
+    border-radius: 12px;
+    font-size: 15px;
+    border: none;
+    cursor: pointer;
+  }
+  
+  /* Dropdown button on hover & focus */
+  .dropbtn:hover, .dropbtn:focus {
+    background-color: #2980B9;
+  }
+  
+  /* The container <div> - needed to position the dropdown content */
+  .dropdown {
+    position: relative;
+    display: inline-block;
+    z-index: 99;
+  }
+  
+  /* Dropdown Content (Hidden by Default) */
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 300px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+  }
+
+  .dropdown-content p {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  /* Links inside the dropdown */
+  .dropdown-content a {
+    color: black;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  /* Change color of dropdown links on hover */
+  .dropdown-content a:hover {background-color: #ddd}
+
+  .dropdown button {
+    color: black;
+    border: none;
+    padding: 12px 16px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  /* Show the dropdown menu (use JS to add this class to the .dropdown-content container when the user clicks on the dropdown button) */
+  .show {display:block;}
+
+  #profile {
+      padding-top: 30px;
+  }
+
+  #cart {
+      padding-top: 30px;
+  }
+
+

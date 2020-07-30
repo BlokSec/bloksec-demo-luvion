@@ -42,18 +42,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
 <body>
 	 <!-- header -->
-    <header>
+	 <header>
         <div class="container">
-             <!-- top nav -->
-			 <nav class="top_nav d-flex pt-3 pb-1">
+            <!-- top nav -->
+            <nav class="top_nav d-flex pt-3 pb-1">
                 <!-- logo -->
-                <img src="images/logo.png" height="102" width="122">
-                
-                <!--<h1>
-                    <a class="navbar-brand" href="index.html">fh
-                    </a>
-                </h1>-->
-                <!-- //logo -->
+                <h1>
+                  <a class="navbar-brand" href="/">fh
+                  </a>
+              </h1>
+              <!-- //logo -->
                 <div class="w3ls_right_nav ml-auto d-flex">
                     <!-- search form -->
                     <form class="nav-search form-inline my-0 form-control" action="#" method="post">
@@ -82,18 +80,40 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             </optgroup>
                         </select>
                         <input class="btn btn-outline-secondary  ml-3 my-sm-0" type="submit" value="Search">
-                    </form>
+					</form>
+					<% if (isAuthenticated) { %>
+						<div class="dropdown">
+							<button onclick="profileDropdown()" class="dropbtn"><i class="far fa-user"></i></button>
+							<div id="myDropdown" class="dropdown-content">
+							  <p><b>Welcome, User!</b></p>
+							  <a href="profile.html">Profile</a>
+							  <form method="POST" action="/logout">
+								<button type="submit">Log Out</button>
+							  </form>
+							</div>
+						</div>
+						&nbsp;&nbsp;&nbsp;&nbsp;
                     <!-- search form -->
-                    <!-- search form -->
+                    <!-- <div class="dropdown">
+                        <button onclick="myFunction()" class="dropbtn"><i class="far fa-user"></i></button>
+                        <div id="myDropdown" class="dropdown-content">
+                          <p><b>Welcome, Chirag Solanki!</b></p>
+                          <a href="#about">Profile</a>
+                          <a href="#contact">Log Out</a>
+                        </div>
+                    </div>
+                    &nbsp;&nbsp;&nbsp;&nbsp; -->
                     <div class="nav-icon d-flex">
-                        <!-- sigin and sign up -->
-                        <a class="text-dark login_btn align-self-center mx-3" href="#myModal_btn" data-toggle="modal" data-target="#myModal_btn">
-                            <i class="far fa-user"></i>
-                        </a>
+						<!-- sigin and sign up -->
+                        <%} else { %>
+							<a class="text-dark login_btn align-self-center mx-3" href="#myModal_btn" data-toggle="modal" data-target="#myModal_btn">
+								<i class="far fa-user"></i>
+							</a>
+						<% } %>
                         <!-- sigin and sign up -->
                         <!-- shopping cart -->
                         <div class="cart-mainf">
-                            <div class="hubcart hubcart2 cart cart box_1"><br>
+                            <div class="hubcart hubcart2 cart cart box_1">
                                 <form action="#" method="post">
                                     <input type="hidden" name="cmd" value="_cart">
                                     <input type="hidden" name="display" value="1">
@@ -109,7 +129,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             </nav>
             <!-- //top nav -->
             <!-- bottom nav -->
-			<nav class="navbar navbar-expand-lg navbar-light justify-content-center">
+            <nav class="navbar navbar-expand-lg navbar-light justify-content-center">
                 <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent"
                     aria-expanded="false" aria-label="Toggle navigation">
                     <span class="navbar-toggler-icon"></span>
@@ -117,7 +137,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto text-center">
                         <li class="nav-item">
-                            <a class="nav-link  active" href="index.html">Home
+                            <a class="nav-link  active" href="/">Home
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
@@ -129,7 +149,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                         <div class="col-md-4">
                                             <a class="dropdown-item" href="men.html">T-Shirts</a>
                                             <a class="dropdown-item" href="men.html">Shirts</a>
-                                            <a class="dropdown-item" href="mens.html">Formal Ware</a>
+                                            <a class="dropdown-item" href="men.html">Formal Ware</a>
                                             <a class="dropdown-item" href="men.html">Jeans</a>
                                         </div>
                                     </div>
@@ -174,13 +194,10 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">About</a>
+                            <a class="nav-link" href="about.html">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Blog</a>
-                        </li>
-                        <li class="nav-item">
-                            <a class="nav-link" href="#">Contact</a>
+                            <a class="nav-link" href="contact.html">Contact</a>
                         </li>
                     </ul>
                 </div>
@@ -200,7 +217,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	<nav aria-label="breadcrumb">
 		<ol class="breadcrumb">
 			<li class="breadcrumb-item">
-				<a href="index.html">Home</a>
+				<a href="/">Home</a>
 			</li>
 			<li class="breadcrumb-item active" aria-current="page">Women's Clothing</li>
 		</ol>
@@ -599,10 +616,14 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 						<!-- row2 -->
 						<!-- card -->
 						<div class="col-lg-3 col-sm-6 p-0">
-							<div class="card product-men p-3 out_w3">
-								<div class="men-thumb-item position-relative">
+							<div class="card product-men p-3">
+								<div class="men-thumb-item">
 									<img src="images/pf7.jpg" alt="img" class="card-img-top">
-									<span class="px-2 position-absolute">out of stock</span>
+									<div class="men-cart-pro">
+										<div class="inner-men-cart-pro">
+											<a href="women.html" class="link-product-add-cart">Quick View</a>
+										</div>
+									</div>
 								</div>
 								<!-- card body -->
 								<div class="card-body  py-3 px-2">
@@ -614,9 +635,16 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								</div>
 								<!-- card footer -->
 								<div class="card-footer d-flex justify-content-end">
-									<button type="submit" class="hub-cart phub-cart btn">
-										<i class="fa fa-cart-plus" aria-hidden="true"></i>
-									</button>
+									<form action="#" method="post">
+										<input type="hidden" name="cmd" value="_cart">
+										<input type="hidden" name="add" value="1">
+										<input type="hidden" name="hub_item" value="Moderno Solid Women's Tunic">
+										<input type="hidden" name="amount" value="27.00">
+										<button type="submit" class="hub-cart phub-cart btn">
+											<i class="fa fa-cart-plus" aria-hidden="true"></i>
+										</button>
+										<a href="#" data-toggle="modal" data-target="#myModal1"></a>
+									</form>
 								</div>
 							</div>
 						</div>
@@ -669,7 +697,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								</div>
 								<!-- card body -->
 								<div class="card-body  py-3 px-2">
-									<h5 class="card-title text-capitalize">Casual polo Women's T-shirt</h5>
+									<h5 class="card-title text-capitalize">Casual Polo Women's T-shirt</h5>
 									<div class="card-text d-flex justify-content-between">
 										<p class="text-dark font-weight-bold">$13.00</p>
 										<p class="line-through">$20.99</p>
@@ -680,7 +708,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									<form action="#" method="post">
 										<input type="hidden" name="cmd" value="_cart">
 										<input type="hidden" name="add" value="1">
-										<input type="hidden" name="hub_item" value="Blue Wedding Formal Blazer">
+										<input type="hidden" name="hub_item" value="Casual Polo Women's T-shirt">
 										<input type="hidden" name="amount" value="13.00">
 										<button type="submit" class="hub-cart phub-cart btn">
 											<i class="fa fa-cart-plus" aria-hidden="true"></i>
@@ -756,7 +784,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									<form action="#" method="post">
 										<input type="hidden" name="cmd" value="_cart">
 										<input type="hidden" name="add" value="1">
-										<input type="hidden" name="hub_item" value="Men's Hooded Blue T-Shirt">
+										<input type="hidden" name="hub_item" value="Slim Women's Blue Jeans">
 										<input type="hidden" name="amount" value="19.99">
 										<button type="submit" class="hub-cart phub-cart btn">
 											<i class="fa fa-cart-plus" aria-hidden="true"></i>
@@ -861,7 +889,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									<form action="#" method="post">
 										<input type="hidden" name="cmd" value="_cart">
 										<input type="hidden" name="add" value="1">
-										<input type="hidden" name="hub_item" value="Slim Women's Black Jeans">
+										<input type="hidden" name="hub_item" value="Slim Women's Blue Jeans">
 										<input type="hidden" name="amount" value="16.99">
 										<button type="submit" class="hub-cart phub-cart btn">
 											<i class="fa fa-cart-plus" aria-hidden="true"></i>
@@ -961,7 +989,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								</div>
 								<!-- card body -->
 								<div class="card-body  py-3 px-2">
-									<h5 class="card-title text-capitalize">SlimLight Dark Blue Jeans</h5>
+									<h5 class="card-title text-capitalize">Slim Light Dark Blue Jeans</h5>
 									<div class="card-text d-flex justify-content-between">
 										<p class="text-dark font-weight-bold">$12.99</p>
 										<p class="line-through">$18.99</p>
@@ -972,7 +1000,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 									<form action="#" method="post">
 										<input type="hidden" name="cmd" value="_cart">
 										<input type="hidden" name="add" value="1">
-										<input type="hidden" name="hub_item" value="SlimLight Dark Blue Jeans">
+										<input type="hidden" name="hub_item" value="Slim Light Dark Blue Jeans">
 										<input type="hidden" name="amount" value="12.99">
 										<button type="submit" class="hub-cart phub-cart btn">
 											<i class="fa fa-cart-plus" aria-hidden="true"></i>
@@ -1206,7 +1234,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				<div class="container">
 					<ul class="bottom-links-agile">
 						<li>
-							<a href="index.html">Home</a>
+							<a href="/">Home</a>
 						</li>
 						<li>
 							<a href="#">About Us</a>
@@ -1281,7 +1309,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 				</div>
 				<div class="cpy-right align-self-center">
 					<h2 class="agile_btxt">
-						<a href="index.html">
+						<a href="/">
 							Fashion Hub</a>
 					</h2>
 					<p>© 2020 Fashion Hub. All rights reserved | Design by W3layouts
@@ -1292,7 +1320,6 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	</div>
 </footer>
 <!-- //footer-top -->
-
 <!-- sign up Modal -->
 <div class="modal fade" id="myModal_btn" tabindex="-1" role="dialog" aria-labelledby="myModal_btn" aria-hidden="true">
 	<div class="agilemodal-dialog modal-dialog" role="document">
@@ -1305,26 +1332,22 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 			</div>
 			<div class="modal-body pt-3 pb-5 px-sm-5">
 				<div class="row">
-					<div class="col-md-6 align-self-center">
+					<div class="col-md-6 mx-auto align-self-center">
 						<img src="images/p3.png" class="img-fluid" alt="login_image" />
 					</div>
 					<div class="col-md-6">
 						<form action="#" method="post">
 							<div class="form-group">
 								<label for="recipient-name1" class="col-form-label">Your Name</label>
-								<input type="text" class="form-control" placeholder=" " name="Name" id="recipient-name1" required="">
+								<input type="text" class="form-control" placeholder=" " name="name" id="recipient-name1" required="">
 							</div>
 							<div class="form-group">
 								<label for="recipient-email" class="col-form-label">Email</label>
-								<input type="email" class="form-control" placeholder=" " name="Email" id="recipient-email" required="">
+								<input type="email" class="form-control" placeholder=" " name="email" id="recipient-email" required="">
 							</div>
 							<div class="form-group">
-								<label for="password1" class="col-form-label">Password</label>
-								<input type="password" class="form-control" placeholder=" " name="Password" id="password1" required="">
-							</div>
-							<div class="form-group">
-								<label for="password2" class="col-form-label">Confirm Password</label>
-								<input type="password" class="form-control" placeholder=" " name="Confirm Password" id="password2" required="">
+								<label for="recipient-mobile" class="col-form-label">Mobile</label>
+								<input type="mobile" class="form-control" placeholder=" " name="mobile" id="mobile" required="">
 							</div>
 							<div class="sub-w3l">
 								<div class="sub-agile">
@@ -1334,11 +1357,11 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 								</div>
 							</div>
 							<div class="right-w3l">
-								<input type="submit" class="form-control" value="Register">
+								<input type="submit" id="register_button" class="form-control" value="Register">
 							</div>
 						</form>
 						<p class="text-center mt-3">Already a member?
-							<a href="#" data-toggle="modal" data-target="#exampleModal1" class="text-dark login_btn">
+							<a href="/login"  class="text-dark login_btn">
 								Login Now</a>
 						</p>
 					</div>
@@ -1348,44 +1371,9 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	</div>
 </div>
 <!-- //signup modal -->
-<!-- signin Modal -->
-<div class="modal fade" id="exampleModal1" tabindex="-1" role="dialog" aria-labelledby="exampleModal1" aria-hidden="true">
-	<div class="agilemodal-dialog modal-dialog" role="document">
-		<div class="modal-content">
-			<div class="modal-header">
-				<h5 class="modal-title" id="exampleModalLabel">Login</h5>
-				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
-					<span aria-hidden="true">×</span>
-				</button>
-			</div>
-			<div class="modal-body  pt-3 pb-5 px-sm-5">
-				<div class="row">
-					<div class="col-md-6 align-self-center">
-						<img src="images/p3.png" class="img-fluid" alt="login_image" />
-					</div>
-					<div class="col-md-6">
-						<form action="#" method="post">
-							<div class="form-group">
-								<label for="recipient-name" class="col-form-label">Your Name</label>
-								<input type="text" class="form-control" placeholder=" " name="Name" id="recipient-name" required="">
-							</div>
-							<div class="form-group">
-								<label class="col-form-label">Password</label>
-								<input type="password" class="form-control" placeholder=" " name="Password" required="">
-							</div>
-							<div class="right-w3l">
-								<input type="submit" class="form-control" value="Login">
-							</div>
-						</form>
-					</div>
-				</div>
-			</div>
-		</div>
-	</div>
-</div>
-<!-- signin Modal -->
 <!-- js -->
 <script src="js/jquery-2.2.3.min.js"></script>
+<script src="js/womens-cart.js"></script>
 <!-- //js -->
 <!-- smooth dropdown -->
 <script>
@@ -1432,6 +1420,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 	});
 </script>
 <!-- //cart-js -->
+<script src="js/dropdown.js"></script>
 <!-- price range (top products) -->
 <script src="js/jquery-ui.js"></script>
 <script>

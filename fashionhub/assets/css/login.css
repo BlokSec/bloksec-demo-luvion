@@ -1,0 +1,202 @@
+/*================================================
+Login Area CSS
+=================================================*/
+.login-image {
+    height: 100%;
+    width: 100%;
+    background-image: url("../img/login-bg.jpg");
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
+  }
+  
+  .login-image img {
+    display: none;
+  }
+  
+  .login-content {
+    padding-top: 30px;
+  }
+  
+  .login-form {
+    text-align: center;
+    min-width: 300px;
+    max-width: 600px;
+    margin: auto;
+    position: absolute;
+    left: 50%;
+    transform: translate(-50%);
+  }
+  
+  .login-content .login-form .logo {
+    margin-bottom: 35px;
+  }
+  
+  .login-content .login-form .logo a {
+    display: inline-block;
+  }
+  
+  .login-content .login-form h3 {
+    margin-bottom: 0;
+    font-size: 30px;
+    font-weight: 600;
+  }
+  
+  .login-content .login-form p {
+    margin-top: 7px;
+    margin-bottom: 0;
+  }
+  
+  .login-content .login-form form {
+    margin-top: 35px;
+  }
+  
+  .login-content .login-form form .form-control {
+    background-color: #ffffff;
+    color: #0e314c;
+    border: none;
+    -webkit-box-shadow: 0px 5px 28.5px 1.5px rgba(149, 152, 200, 0.2) !important;
+            box-shadow: 0px 5px 28.5px 1.5px rgba(149, 152, 200, 0.2) !important;
+    height: 50px;
+    font-family: "Raleway", sans-serif;
+    font-size: 14px;
+  }
+  
+  .login-content .login-form form .btn {
+    display: block;
+    width: 100%;
+    -webkit-box-shadow: 0px 5px 28.5px 1.5px rgba(149, 152, 200, 0.2);
+            box-shadow: 0px 5px 28.5px 1.5px rgba(149, 152, 200, 0.2);
+  }
+  
+  .login-content .login-form form .forgot-password {
+    text-align: right;
+    margin-top: 15px;
+  }
+  
+  .login-content .login-form form .forgot-password a {
+    display: inline-block;
+    color: #ee0979;
+    text-decoration: underline;
+  }
+  
+  .login-content .login-form form .connect-with-social {
+    margin-top: 15px;
+  }
+  
+  .login-content .login-form form .connect-with-social button {
+    display: block;
+    width: 100%;
+    position: relative;
+    border: 1px solid #ee0979;
+    background-color: transparent;
+    -webkit-transition: 0.5s;
+    transition: 0.5s;
+    padding: 11px 30px;
+    border-radius: 2px;
+    color: #ee0979;
+    font-family: "Raleway", sans-serif;
+    font-weight: 500;
+  }
+  
+  .login-content .login-form form .connect-with-social button i {
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+    left: 15px;
+    font-size: 20px;
+  }
+  
+  .login-content .login-form form .connect-with-social button.facebook {
+    border-color: #3b5998;
+    color: #3b5998;
+  }
+  
+  .login-content .login-form form .connect-with-social button.facebook:hover {
+    background-color: #3b5998;
+    color: #ffffff;
+    border-color: #3b5998;
+  }
+  
+  .login-content .login-form form .connect-with-social button.google {
+    margin-top: 10px;
+    border-color: #EA4335;
+    color: #EA4335;
+  }
+  
+  .login-content .login-form form .connect-with-social button.google:hover {
+    background-color: #EA4335;
+    color: #ffffff;
+    border-color: #EA4335;
+  }
+  
+  .login-content .login-form form .connect-with-social button.bloksec {
+    margin-top: 10px;
+    border-color: #3b3663;
+    color: #3b3663;
+  }
+  
+  .login-content .login-form form .connect-with-social button.bloksec:hover {
+    background-color: #3b3663;
+    color: #ffffff;
+    border-color: #3b3663;
+  }
+  
+  .login-content .login-form form .connect-with-social button.bloksec:hover div.bloksec-icon {
+    background-image: url("../images/bloksec-icon-white-sm.png");
+  }
+  
+  .login-content .login-form form .connect-with-social button.bloksec div.bloksec-icon {
+    height: 22px;
+    width: 22px;
+    display: inline-block;
+    position: absolute;
+    top: 50%;
+    -webkit-transform: translateY(-50%);
+            transform: translateY(-50%);
+    background-image: url("../images/bloksec-icon-sm.png");
+    background-size: cover;
+  }
+  
+  
+  .login-content .login-form form .connect-with-social button:hover {
+    background-color: #ee0979;
+    color: #ffffff;
+    border-color: #ee0979;
+  }
+
+/* Extra small devices (phones, 600px and down) */
+@media only screen and (max-width: 600px) {
+    .login-content {
+        height: 650px;
+    }
+}
+
+/* Small devices (portrait tablets and large phones, 600px and up) */
+@media only screen and (min-width: 600px) {
+    .login-content {
+        height: 640px;
+    }
+}
+
+/* Medium devices (landscape tablets, 768px and up) */
+@media only screen and (min-width: 768px) {
+    .login-content {
+        height: 630px;
+    }
+}
+
+/* Large devices (laptops/desktops, 992px and up) */
+@media only screen and (min-width: 992px) {
+    .login-content {
+        height: 600px;
+    }
+}
+
+/* Extra large devices (large laptops and desktops, 1200px and up) */
+@media only screen and (min-width: 1200px) {
+    .login-content {
+        height: 550px;
+    }
+}

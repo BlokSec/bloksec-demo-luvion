@@ -23,6 +23,7 @@
     <link href="css/checkout.css" type="text/css" rel="stylesheet" media="all">
     <!-- easy-responsive-tabs css -->
     <link rel="stylesheet" href="css/easy-responsive-tabs.css" type="text/css" media="all" />
+    <link href="css/fashionhub.css" rel="stylesheet" type="text/css">
 
     <link href="css/style.css" type="text/css" rel="stylesheet" media="all">
     <!-- font-awesome icons -->
@@ -42,13 +43,12 @@
             <nav class="top_nav d-flex pt-3 pb-1">
                 <!-- logo -->
                 <h1>
-                  <a class="navbar-brand" href="index.html">fh
+                  <a class="navbar-brand" href="/">fh
                   </a>
               </h1>
               <!-- //logo -->
-                <div class="w3ls_right_nav ml-auto d-flex"><br>
+                <div class="w3ls_right_nav ml-auto d-flex">
                     <!-- search form -->
-                    <!--
                     <form class="nav-search form-inline my-0 form-control" action="#" method="post">
                         <select class="form-control input-lg" name="category">
                             <option value="all">Search our store</option>
@@ -75,17 +75,25 @@
                             </optgroup>
                         </select>
                         <input class="btn btn-outline-secondary  ml-3 my-sm-0" type="submit" value="Search">
-                    </form>-->
+                    </form>
                     <!-- search form -->
                     <div class="nav-icon d-flex">
                         <!-- sigin and sign up -->
-                        <a class="text-dark login_btn align-self-center mx-3" href="#myModal_btn" data-toggle="modal" data-target="#myModal_btn">
-                            <i class="far fa-user"></i>
-                        </a>
+                        <div class="dropdown">
+							<button onclick="profileDropdown()" class="dropbtn"><i class="far fa-user"></i></button>
+							<div id="myDropdown" class="dropdown-content">
+							  <p><b>Welcome, User!</b></p>
+							  <a href="profile.html">Profile</a>
+							  <form method="POST" action="/logout">
+								<button type="submit">Log Out</button>
+							  </form>
+							</div>
+						</div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
                         <!-- sigin and sign up -->
                         <!-- shopping cart -->
                         <div class="cart-mainf">
-                            <div class="hubcart hubcart2 cart cart box_1"><br>
+                            <div class="hubcart hubcart2 cart cart box_1">
                                 <form action="#" method="post">
                                     <input type="hidden" name="cmd" value="_cart">
                                     <input type="hidden" name="display" value="1">
@@ -109,7 +117,7 @@
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto text-center">
                         <li class="nav-item">
-                            <a class="nav-link  active" href="index.html">Home
+                            <a class="nav-link  active" href="/">Home
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
@@ -121,7 +129,7 @@
                                         <div class="col-md-4">
                                             <a class="dropdown-item" href="men.html">T-Shirts</a>
                                             <a class="dropdown-item" href="men.html">Shirts</a>
-                                            <a class="dropdown-item" href="men.html">Formal Ware</a>
+                                            <a class="dropdown-item" href="mens.html">Formal Ware</a>
                                             <a class="dropdown-item" href="men.html">Jeans</a>
                                         </div>
                                     </div>
@@ -166,13 +174,13 @@
                             </div>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">About</a>
+                            <a class="nav-link" href="about.html">About</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Blog</a>
+                            <a class="nav-link" href="blog.html">Blog</a>
                         </li>
                         <li class="nav-item">
-                            <a class="nav-link" href="#">Contact</a>
+                            <a class="nav-link" href="contact.html">Contact</a>
                         </li>
                     </ul>
                 </div>
@@ -191,7 +199,7 @@
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="index.html">Home</a>
+                <a href="/">Home</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">Payment</li>
         </ol>
@@ -207,14 +215,14 @@
                 <div class="responsive_tabs innfpage-tabs">
                     <div id="horizontalTab">
                         <ul class="resp-tabs-list">
-                            <li>Cash on delivery (COD)</li>
+                            <!-- <li>Cash on delivery (COD)</li> -->
                             <li>Credit/Debit</li>
-                            <li>Net Banking</li>
-                            <li>Paypal Account</li>
+                            <!-- <li>Net Banking</li> -->
+                            <!-- <li>Paypal Account</li> -->
                         </ul>
                         <div class="resp-tabs-container">
                             <!--/tab_one-->
-                            <div class="tab1">
+                            <!-- <div class="tab1">
                                 <div class="pay_info">
                                     <div class="vertical_post check_box_fpay">
                                         <h5>COD - Now Available</h5>
@@ -229,7 +237,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                             <!--//tab_one-->
                             <div class="tab2">
                                 <div class="pay_info">
@@ -239,7 +247,7 @@
                                                 <div class="first-row form-group">
                                                     <div class="controls">
                                                         <label class="control-label">Name on Card</label>
-                                                        <input class="billing-address-name form-control" type="text" name="name" placeholder="John Smith">
+                                                        <input class="billing-address-name form-control" type="text" name="name" placeholder="John Smith" maxlength="25">
                                                     </div>
                                                     <div class="paymntf_card_number_grids">
                                                         <div class="fpay_card_number_grid_left">
@@ -247,13 +255,13 @@
                                                                 <label class="control-label">Card Number</label>
                                                                 <input class="number credit-card-number form-control" type="text" name="number" inputmode="numeric" autocomplete="cc-number"
                                                                     autocompletetype="cc-number" x-autocompletetype="cc-number"
-                                                                    placeholder="&#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149;">
+                                                                    placeholder="&#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149;" maxlength="16">
                                                             </div>
                                                         </div>
                                                         <div class="fpay_card_number_grid_right">
                                                             <div class="controls">
                                                                 <label class="control-label">CVV</label>
-                                                                <input class="security-code form-control" Â· inputmode="numeric" type="text" name="security-code" placeholder="&#149;&#149;&#149;">
+                                                                <input class="security-code form-control" Â· inputmode="numeric" type="text" name="security-code" placeholder="&#149;&#149;&#149;" maxlength="3">
                                                             </div>
                                                         </div>
                                                         <div class="clear"> </div>
@@ -262,15 +270,27 @@
                                                         <label class="control-label">Expiration Date</label>
                                                         <input class="expiration-month-and-year form-control" type="text" name="expiration-month-and-year" placeholder="MM / YY">
                                                     </div>
+                                                    <div class="controls">
+                                                        <label class="control-label">Amount</label>
+                                                        <input id="cartTotal" class="billing-address-name form-control" type="text" name="amount" value="" readonly> 
+                                                    </div>
                                                 </div>
-                                                <input class="btn btn-primary submit" type="submit" value="Make Payment">
+                                                <input id="paymentBtn" class="btn btn-primary submit" type="submit" value="Make Payment">
+                                                <div class="status-container">
+                                                    <div class="status-subcontainer">
+                                                      <img class="spinner" src="images/800x600-arc2.gif" alt="spinner">
+                                                    </div>
+                                                    <div class="status-subcontainer">
+                                                      <p><b>Sending consent request</b> - please respond using your mobile device.</p>
+                                                    </div>
+                                                  </div>
                                             </div>
                                         </section>
                                     </form>
 
                                 </div>
                             </div>
-                            <div class="tab3">
+                            <!-- <div class="tab3">
 
                                 <div class="pay_info">
                                     <div class="vertical_post">
@@ -367,8 +387,8 @@
                                         </form>
                                     </div>
                                 </div>
-                            </div>
-                            <div class="tab4">
+                            </div> -->
+                            <!-- <div class="tab4">
                                 <div class="pay_info">
                                     <div class="row">
                                         <div class="col-md-6 tab-grid">
@@ -385,13 +405,13 @@
                                                         <div class="first-row form-group">
                                                             <div class="controls">
                                                                 <label class="control-label">Card Holder </label>
-                                                                <input class="billing-address-name form-control" type="text" name="name" placeholder="John Smith">
+                                                                <input class="billing-address-name form-control" type="text" name="name" placeholder="John Smith" maxlength="5">
                                                             </div>
                                                             <div class="paymntf_card_number_grids">
                                                                 <div class="fpay_card_number_grid_left">
                                                                     <div class="controls">
                                                                         <label class="control-label">Card Number</label>
-                                                                        <input class="number credit-card-number form-control" type="text" name="number" inputmode="numeric" autocomplete="cc-number"
+                                                                        <input maxlength="10" class="number credit-card-number form-control" type="text" name="number"
                                                                             autocompletetype="cc-number" x-autocompletetype="cc-number"
                                                                             placeholder="&#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149; &#149;&#149;&#149;&#149;">
                                                                     </div>
@@ -416,7 +436,7 @@
                                         </div>
                                     </div>
                                 </div>
-                            </div>
+                            </div> -->
                         </div>
                     </div>
                 </div>
@@ -605,7 +625,7 @@
                     <div class="container">
                         <ul class="bottom-links-agile">
                             <li>
-                                <a href="index.html">Home</a>
+                                <a href="/">Home</a>
                             </li>
                             <li>
                                 <a href="#">About Us</a>
@@ -680,7 +700,7 @@
                     </div>
                     <div class="cpy-right align-self-center">
                         <h2 class="agile_btxt">
-                            <a href="index.html">
+                            <a href="/">
                                 Fashion Hub</a>
                         </h2>
                         <p>© 2020 Fashion Hub. All rights reserved | Design by W3layouts
@@ -784,8 +804,37 @@
     <!-- signin Modal -->
     <!-- js -->
     <script src="js/jquery-2.2.3.min.js"></script>
+    <script>
+        /* When the user clicks on the button, 
+        toggle between hiding and showing the dropdown content */
+        function myFunction() {
+          document.getElementById("myDropdown").classList.toggle("show");
+        }
+        
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+          if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+              var openDropdown = dropdowns[i];
+              if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+              }
+            }
+          }
+        }
+    </script>
     <!-- //js -->
     <!-- smooth dropdown -->
+    <script>
+        function displayCartTotal() {
+            var total = localStorage.getItem("grandTotal");
+            document.getElementById("cartTotal").value = `$${total}`
+            console.log(total);
+        }
+        displayCartTotal()
+    </script>
     <script>
         $(document).ready(function () {
             $('ul li.dropdown').hover(function () {
@@ -817,6 +866,7 @@
    
     <!-- cart-js -->
     <script src="js/minicart.js"></script>
+    <script src="js/dropdown.js"></script>
     <script>
         hub.render();
 
@@ -864,14 +914,15 @@
                 '.creditly-wrapper .security-code',
                 '.creditly-wrapper .card-type');
 
-            $(".creditly-card-form .submit").click(function (e) {
-                e.preventDefault();
-                var output = creditly.validate();
-                if (output) {
-                    // Your validated credit card output
-                    console.log(output);
-                }
-            });
+            // $(".creditly-card-form .submit").click(function (e) {
+            //     e.preventDefault();
+            //     var output = creditly.validate();
+            //     // location.href = "paymentSuccess.html";
+            //     // if (output) {
+            //     //     // Your validated credit card output
+            //     //     console.log(output);
+            //     // }
+            // });
         });
     </script>
     <!-- //credit-card -->
@@ -914,6 +965,8 @@
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="js/bootstrap.js"></script>
+
+    <script src="js/payment.js"></script>
 </body>
 
 </html>

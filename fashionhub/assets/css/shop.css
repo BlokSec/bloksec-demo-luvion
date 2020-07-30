@@ -1,5 +1,10 @@
 /*-- Shopping-Cart-PopUp --*/
 
+li#grandTotal {
+	font-size: 18px;
+	color: black;
+}
+
 div#my-cart-modal {
 	background-color: rgba(0, 0, 0, 0.50);
 }

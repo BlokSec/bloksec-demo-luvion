@@ -103,6 +103,14 @@ app.use(publicRouter);
 const secureRouter = require('./routes/secure-routes');
 app.use(secureRouter);
 
+app.get('*', (req, res) => {
+  if (req.isAuthenticated()) {
+    res.render('404', { isAuthenticated: req.isAuthenticated(), user: req.userContext });
+  } else {
+    res.render('404', { isAuthenticated: req.isAuthenticated() });
+  }
+})
+
 // app.use((req, res) => {
 //   res.status(404).render('error-404');
 // });

@@ -45,7 +45,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
             <nav class="top_nav d-flex pt-3 pb-1">
                 <!-- logo -->
                 <h1>
-                  <a class="navbar-brand" href="index.html">fh
+                  <a class="navbar-brand" href="/">fh
                   </a>
               </h1>
               <!-- //logo -->
@@ -81,13 +81,21 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <!-- search form -->
                     <div class="nav-icon d-flex">
                         <!-- sigin and sign up -->
-                        <a class="text-dark login_btn align-self-center mx-3" href="#myModal_btn" data-toggle="modal" data-target="#myModal_btn">
-                            <i class="far fa-user"></i>
-                        </a>
+                        <div class="dropdown">
+							<button onclick="profileDropdown()" class="dropbtn"><i class="far fa-user"></i></button>
+							<div id="myDropdown" class="dropdown-content">
+							  <p><b>Welcome, User!</b></p>
+							  <a href="profile.html">Profile</a>
+							  <form method="POST" action="/logout">
+								<button type="submit">Log Out</button>
+							  </form>
+							</div>
+						</div>
+                        &nbsp;&nbsp;&nbsp;&nbsp;
                         <!-- sigin and sign up -->
                         <!-- shopping cart -->
                         <div class="cart-mainf">
-                            <div class="hubcart hubcart2 cart cart box_1"><br>
+                            <div class="hubcart hubcart2 cart cart box_1">
                                 <form action="#" method="post">
                                     <input type="hidden" name="cmd" value="_cart">
                                     <input type="hidden" name="display" value="1">
@@ -111,7 +119,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <div class="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul class="navbar-nav mx-auto text-center">
                         <li class="nav-item">
-                            <a class="nav-link  active" href="index.html">Home
+                            <a class="nav-link  active" href="/">Home
                                 <span class="sr-only">(current)</span>
                             </a>
                         </li>
@@ -194,7 +202,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <nav aria-label="breadcrumb">
         <ol class="breadcrumb">
             <li class="breadcrumb-item">
-                <a href="index.html">Home</a>
+                <a href="/">Home</a>
             </li>
             <li class="breadcrumb-item active" aria-current="page">Check Out</li>
         </ol>
@@ -207,8 +215,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                 <div class="d-sm-flex justify-content-between mb-4">
                     <h4>review your order
                     </h4>
-                    <h4 class="mt-sm-0 mt-3">Your shopping cart contains:
-                        <span>2 Products</span>
+                    <h4 class="mt-sm-0 mt-3" id="productCount">
                     </h4>
                 </div>
                 <div class="checkout-right">
@@ -224,91 +231,20 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                 <th>Remove</th>
                             </tr>
                         </thead>
-                        <tbody>
-                            <tr class="rem1">
-                                <td class="invert">1</td>
-                                <td class="invert-image">
-                                    <a href="single_product.html">
-                                        <img src="images/pm1.jpg" alt=" " class="img-responsive">
-                                    </a>
-                                </td>
-                                <td class="invert">
-                                    <div class="quantity">
-                                        <div class="quantity-select">
-                                            <div class="entry value-minus">&nbsp;</div>
-                                            <div class="entry value">
-                                                <span>1</span>
-                                            </div>
-                                            <div class="entry value-plus active">&nbsp;</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="invert">Solid Men's Black Shirt</td>
-
-                                <td class="invert">$40.00</td>
-                                <td class="invert">
-                                    <div class="rem">
-                                        <div class="close1"> </div>
-                                    </div>
-
-                                </td>
-                            </tr>
-                            <tr class="rem2">
-                                <td class="invert">2</td>
-                                <td class="invert-image">
-                                    <a href="single_product.html">
-                                        <img src="images/pf1.jpg" alt=" " class="img-responsive">
-                                    </a>
-                                </td>
-                                <td class="invert">
-                                    <div class="quantity">
-                                        <div class="quantity-select">
-                                            <div class="entry value-minus">&nbsp;</div>
-                                            <div class="entry value">
-                                                <span>1</span>
-                                            </div>
-                                            <div class="entry value-plus active">&nbsp;</div>
-                                        </div>
-                                    </div>
-                                </td>
-                                <td class="invert">Women's Light Blue Tunic</td>
-
-                                <td class="invert">$28.00</td>
-                                <td class="invert">
-                                    <div class="rem">
-                                        <div class="close2"> </div>
-                                    </div>
-
-                                </td>
-                            </tr>
+                        <tbody id="shoppingcart">
                         </tbody>
                     </table>
                 </div>
                 <div class="row checkout-left mt-5">
                     <div class="col-md-4 checkout-left-basket">
                         <h4>Continue to basket</h4>
-                        <ul>
-                            <li>Solid Men's Black Shirt
-                                <i>:</i>
-                                <span>$40.00 </span>
-                            </li>
-                            <li>Women's Light Blue Tunic
-                                <i>:</i>
-                                <span>$28.00 </span>
-                            </li>
-                            <li>Taxes (13%)
-                                <i>:</i>
-                                <span>$8.84</span>
-                            </li>
-                            <li>Total
-                                <i>:</i>
-                                <span>$76.84</span>
-                            </li>
+                        <ul id="shopping-summary">
+                            
                         </ul>
                     </div>
                     <div class="col-md-8 address_form">
                         <h4>Billing Address</h4>
-                        <form action="payment.html" method="post" class="creditly-card-form shopf-sear-headinfo_form">
+                        <form action="javascript:void(0);" method="post" class="creditly-card-form shopf-sear-headinfo_form">
                             <div class="creditly-wrapper wrapper">
                                 <div class="information-wrapper">
                                     <div class="first-row form-group">
@@ -344,7 +280,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                                             </select>
                                         </div>
                                     </div>
-                                    <button class="submit check_out">place order</button>
+                                    <button class="submit check_out" onClick="location.href='payment.html'">place order</button>
                                 </div>
                             </div>
                         </form>
@@ -537,7 +473,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     <div class="container">
                         <ul class="bottom-links-agile">
                             <li>
-                                <a href="index.html">Home</a>
+                                <a href="/">Home</a>
                             </li>
                             <li>
                                 <a href="about.html">About Us</a>
@@ -609,7 +545,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
                     </div>
                     <div class="cpy-right align-self-center">
                         <h2 class="agile_btxt">
-                            <a href="index.html">
+                            <a href="/">
                                 Fashion Hub</a>
                         </h2>
                         <p>© 2018 Fashion Hub. All rights reserved | Design by
@@ -714,6 +650,28 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!-- signin Modal -->
     <!-- js -->
     <script src="js/jquery-2.2.3.min.js"></script>
+    <script src="js/shoppingcart.js"></script>
+    <script>
+        /* When the user clicks on the button, 
+        toggle between hiding and showing the dropdown content */
+        function myFunction() {
+          document.getElementById("myDropdown").classList.toggle("show");
+        }
+        
+        // Close the dropdown if the user clicks outside of it
+        window.onclick = function(event) {
+          if (!event.target.matches('.dropbtn')) {
+            var dropdowns = document.getElementsByClassName("dropdown-content");
+            var i;
+            for (i = 0; i < dropdowns.length; i++) {
+              var openDropdown = dropdowns[i];
+              if (openDropdown.classList.contains('show')) {
+                openDropdown.classList.remove('show');
+              }
+            }
+          }
+        }
+    </script>
     <!-- //js -->
     <!-- smooth dropdown -->
     <script>
@@ -746,6 +704,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
     <!-- script for password match -->
     <!-- cart-js -->
     <script src="js/minicart.js"></script>
+    <script src="js/dropdown.js"></script>
     <script>
         hub.render();
 
@@ -838,7 +797,7 @@ License URL: http://creativecommons.org/licenses/by/3.0/
 
         });
     </script>
-    <script src="js/SmoothScroll.min.js"></script>
+    <!-- <script src="js/SmoothScroll.min.js"></script> -->
     <!-- //smooth-scrolling-of-move-up -->
     <!-- Bootstrap core JavaScript
     ================================================== -->

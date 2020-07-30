@@ -76,6 +76,20 @@ td.invert-image a img {
     -o-transition: color 0.2s ease-in-out;
     transition: color 0.2s ease-in-out;
 }
+
+.close {
+	color: black;
+    cursor: pointer;
+    width: 41px;
+    height: 38px;
+    position: absolute;
+    right: 12px;
+    top: -19px;
+    -webkit-transition: color 0.2s ease-in-out;
+    -moz-transition: color 0.2s ease-in-out;
+    -o-transition: color 0.2s ease-in-out;
+    transition: color 0.2s ease-in-out;
+}
 /*-- quantity-starts --*/
 
 .value-minus,
