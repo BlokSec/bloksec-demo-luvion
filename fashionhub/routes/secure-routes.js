@@ -9,6 +9,7 @@ const https = require('https');
 const http = require('http');
 const flash = require('express-flash');
 const axios = require('axios');
+const util = require('util');
 const config = require('../config.js');
 // Logging middleware
 const log = log4js.getLogger('secure-routes');
@@ -42,19 +43,19 @@ router.route('/payment.html')
   })
   .post(ensureLoggedIn('/'), async (req, res, next) => {
     const payment = req.body;
-    log.debug(payment);
+    log.debug(`Payment information: ${util.inspect(payment, false, 0, true)}`);
     const email = (req.userContext.userinfo ? req.userContext.userinfo.email : req.userContext);
     log.debug(`User's email: ${email}`);
     try {
       const data = {
         verification_prompt: 'Payment Authorization Request',
-        clientId: config.oidc.clientId,
+        appId: config.oidc.clientId,
         accountName: email,
         requestSummary: 'Fashion Hub Payment Authorization Request',
         requestDetails: `Do you consent to purchase at Fashion Hub for the amount of ${payment.amount}?`,
         nonce: Date.now().toString()
       };
-
+      log.debug(`Sending POST /auth request with the following:\n${util.inspect(data, false, 0, true)}`);
       const result = await axios.post(`${config.oidc.apiHost}/auth`, data);
       log.debug(result.data);
       if (!result.data.returnValues) {
