@@ -81,11 +81,11 @@ router.route('/login.html')
       // Here we need to lookup the user to see if they have BlokSec MFA enabled - call the /account/:appId/:accountName to check
       var response;
       try {
-        log.debug(`Calling PATCH ${config.oidc.apiHost}/account/${config.oidc.clientId}/${req.body.username}`);
+        log.debug(`Calling PATCH ${config.oidc.apiHost}/account/${config.oidc.appDID}/${req.body.username}`);
         const data = {
           auth_token: config.secrets.writeToken,
         };
-        response = await axios.patch(`${config.oidc.apiHost}/account/${config.oidc.clientId}/${req.body.username}`, data);
+        response = await axios.patch(`${config.oidc.apiHost}/account/${config.oidc.appDID}/${req.body.username}`, data);
       } catch (error) {
         if (error.response.status == 404) {
           // user doesn't exist in BlokSec, just log them in
@@ -121,7 +121,7 @@ router.ws('/interaction/updates', async (ws, req, next) => {
 
     try {
       const data = {
-        appId: config.oidc.clientId,
+        appId: config.oidc.appDID,
         accountName: user,
         requestSummary: 'Luvion Authentication Request',
         requestDetails: `Please confirm that you are logging into Luvion as ${user}`,
@@ -200,7 +200,8 @@ router.route(['/sign-up.html'])
   // {
   //   "auth_token": "59ea3453-185c-4555-92cf-b2a487f50d3d",
   //   "user": {
-  //    "name": "Registration User01",
+  //    "first_name": "Registration",
+  //    "last_name": "User01",
   //    "email": "mike.gillan@gmail.com",
   //    "mobile_number": "+19055550000"
   //   },
@@ -215,13 +216,14 @@ router.route(['/sign-up.html'])
     const data = {
       auth_token: config.secrets.writeToken,
       user: {
-        name: `${req.body.firstName} ${req.body.lastName}`,
+        first_name: req.body.firstName,
+        last_name: req.body.lastName,
         email: req.body.email,
         mobile_number: req.body.mobile,
       },
       account: {
         name: req.body.username,
-        appId: config.oidc.clientId,
+        appDID: config.oidc.appDID,
       },
     }
 

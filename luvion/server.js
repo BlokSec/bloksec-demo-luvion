@@ -19,8 +19,8 @@ const frontendDir = path.join(__dirname, 'assets');
 
 const oidc = new ExpressOIDC(Object.assign({
   issuer: config.oidc.issuer,
-  client_id: config.oidc.clientId,
-  client_secret: config.oidc.clientSecret,
+  appDID: config.oidc.appDID,
+  appSecret: config.oidc.appSecret,
   appBaseUrl: config.oidc.appBaseUrl,
   scope: config.oidc.scope,
   testing: config.oidc.testing

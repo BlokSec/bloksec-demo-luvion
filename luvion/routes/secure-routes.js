@@ -36,7 +36,7 @@ router.route('/mytransferfunds.html')
     try {
       const data = {
         verification_prompt: 'Transfer Funds Request',
-        appId: config.oidc.clientId,
+        appId: config.oidc.appDID,
         accountName: email,
         requestSummary: 'Luvion Transfer Funds Request',
         requestDetails: `Confirm transfer of ${transfer.amount} ${transfer.currency} to ${transfer.recipient}?`,
@@ -117,10 +117,10 @@ function parseCode(code, res) {
 
 router.get('/registration_qr', (req, res) => {
   const { accountName } = req.query;
-  const { issuer, clientId, apiHost } = config.oidc;
+  const { issuer, appDID, apiHost } = config.oidc;
   const issuerURL = new URL(issuer);
   const location = issuerURL.protocol + '//' + issuerURL.host;
-  const requestString = `${location}/account/qr?appId=${clientId}&accountName=${accountName}&address=${issuerURL.host}`;
+  const requestString = `${location}/account/qr?appId=${appDID}&accountName=${accountName}&address=${issuerURL.host}`;
   log.debug(`QR code request string: '${requestString}'`);
   try {
     if (issuerURL.protocol === 'https:') {
