@@ -62,18 +62,18 @@ configUtil.assertIssuer = (issuer, testing = {}) => {
   }
 };
 
-configUtil.assertAppDID = (appDID) => {
-  if (!appDID) {
-    throw new ConfigurationValidationError('Your app DID is missing. ' + copyCredentialsMessage);
-  } else if (appDID.match(/{appDID}/)) {
-    throw new ConfigurationValidationError('Replace {appDID} with the client ID of your Application. ' + copyCredentialsMessage);
+configUtil.assertClientId = (clientId) => {
+  if (!clientId) {
+    throw new ConfigurationValidationError('Your client ID is missing. ' + copyCredentialsMessage);
+  } else if (clientId.match(/{clientId}/)) {
+    throw new ConfigurationValidationError('Replace {clientId} with the client ID of your Application. ' + copyCredentialsMessage);
   }
 };
 
-configUtil.assertAppSecret = (appSecret) => {
-  if (!appSecret) {
+configUtil.assertClientSecret = (clientSecret) => {
+  if (!clientSecret) {
     throw new ConfigurationValidationError('Your client secret is missing. ' + copyCredentialsMessage);
-  } else if (appSecret.match(/{appSecret}/)) {
+  } else if (clientSecret.match(/{clientSecret}/)) {
     throw new ConfigurationValidationError('Replace {clientSecret} with the client secret of your Application. ' + copyCredentialsMessage);
   }
 };
