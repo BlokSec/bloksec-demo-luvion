@@ -49,7 +49,7 @@ router.route('/payment.html')
     try {
       const data = {
         verification_prompt: 'Payment Authorization Request',
-        appId: config.oidc.clientId,
+        appDID: config.oidc.appDID,
         accountName: email,
         requestSummary: 'Fashion Hub Payment Authorization Request',
         requestDetails: `Do you consent to purchase at Fashion Hub for the amount of ${payment.amount}?`,
@@ -115,7 +115,7 @@ router.route('/mytransferfunds.html')
     try {
       const data = {
         verification_prompt: 'Transfer Funds Request',
-        clientId: config.oidc.clientId,
+        appDID: config.oidc.appDID,
         accountName: email,
         requestSummary: 'Luvion Transfer Funds Request',
         requestDetails: `Confirm transfer of ${transfer.amount} ${transfer.currency} to ${transfer.recipient}?`,
@@ -196,16 +196,16 @@ function parseCode(code, res) {
 
 router.get('/registration_qr', (req, res) => {
   const { accountName } = req.query;
-  const { issuer, clientId, apiHost } = config.oidc;
+  const { issuer, appDID, apiHost } = config.oidc;
   const issuerURL = new URL(issuer);
   const location = issuerURL.protocol + '//' + issuerURL.host;
   try {
     if (issuerURL.protocol === 'https:') {
-      https.get(`${location}/account/qr?appId=${clientId}&accountName=${accountName}&address=${issuerURL.host}`, (code) => {
+      https.get(`${location}/account/qr?appDID=${appDID}&accountName=${accountName}&address=${issuerURL.host}`, (code) => {
         parseCode(code, res);
       });
     } else {
-      http.get(`${location}/account/qr?appId=${clientId}&accountName=${accountName}&address=${issuerURL.host}`, (code) => {
+      http.get(`${location}/account/qr?appDID=${appDID}&accountName=${accountName}&address=${issuerURL.host}`, (code) => {
         parseCode(code, res);
       });
     }
