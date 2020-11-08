@@ -36,7 +36,8 @@ router.route('/mytransferfunds.html')
     try {
       const data = {
         verification_prompt: 'Transfer Funds Request',
-        appId: config.oidc.clientId,
+        application: config.oidc.clientId,
+        auth_token: config.oidc.clientSecret,
         accountName: email,
         requestSummary: 'Luvion Transfer Funds Request',
         requestDetails: `Confirm transfer of ${transfer.amount} ${transfer.currency} to ${transfer.recipient}?`,

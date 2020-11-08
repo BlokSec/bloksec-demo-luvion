@@ -213,7 +213,7 @@ router.route(['/sign-up.html'])
     log.debug(req.body);
 
     const data = {
-      auth_token: config.secrets.writeToken,
+      auth_token: config.oidc.clientSecret,
       user: {
         name: `${req.body.firstName} ${req.body.lastName}`,
         email: req.body.email,
@@ -221,7 +221,7 @@ router.route(['/sign-up.html'])
       },
       account: {
         name: req.body.username,
-        appId: config.oidc.clientId,
+        application: config.oidc.clientId,
       },
     }
 
