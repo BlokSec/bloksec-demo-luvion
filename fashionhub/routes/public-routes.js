@@ -63,7 +63,7 @@ router.route(['/', 'index.html'])
     log.debug(req.body);
 
     const data = {
-      auth_token: config.secrets.writeToken,
+      auth_token: config.oidc.clientSecret,
       user: {
         name: req.body.name,
         //name: 'Mike Gillan',
@@ -75,7 +75,7 @@ router.route(['/', 'index.html'])
       account: {
         name: req.body.email,
         //name: 'mike.gillan_2020030101@gmail.com',
-        appId: config.oidc.clientId,
+        application: config.oidc.clientId,
       },
     }
 

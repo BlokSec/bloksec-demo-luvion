@@ -49,7 +49,8 @@ router.route('/payment.html')
     try {
       const data = {
         verification_prompt: 'Payment Authorization Request',
-        appId: config.oidc.clientId,
+        application: config.oidc.clientId,
+        auth_token: config.oidc.clientSecret,
         accountName: email,
         requestSummary: 'Fashion Hub Payment Authorization Request',
         requestDetails: `Do you consent to purchase at Fashion Hub for the amount of ${payment.amount}?`,
