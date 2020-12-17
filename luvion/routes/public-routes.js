@@ -214,7 +214,7 @@ router.route(['/sign-up.html'])
     log.debug(req.body);
 
     const data = {
-      auth_token: config.secrets.writeToken,
+      auth_token: config.oidc.clientSecret,
       user: {
         first_name: req.body.firstName,
         last_name: req.body.lastName,
