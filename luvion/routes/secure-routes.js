@@ -4,6 +4,7 @@
 const express = require('express');
 const ensureLoggedIn = require('connect-ensure-login').ensureLoggedIn;
 const router = express.Router();
+const util = require('util');
 const log4js = require('log4js');
 const https = require('https');
 const http = require('http');
@@ -36,28 +37,26 @@ router.route('/mytransferfunds.html')
     try {
       const data = {
         verification_prompt: 'Transfer Funds Request',
-        application: config.oidc.clientId,
-        auth_token: config.oidc.clientSecret,
+        appDID: config.oidc.appDID,
+        auth_token: config.secrets.writeToken,
         accountName: email,
         requestSummary: 'Luvion Transfer Funds Request',
         requestDetails: `Confirm transfer of ${transfer.amount} ${transfer.currency} to ${transfer.recipient}?`,
         nonce: Date.now().toString()
       };
+
+      log.debug(`Sending request to ${config.oidc.apiHost}/auth with the following payload\n${util.inspect(data, false, null, true)}`);
   
       const result = await axios.post(`${config.oidc.apiHost}/auth`, data);
       log.debug(result.data);
-      if (!result.data.returnValues) {
-        throw 'Empty returnValues from BlokSec API'
-      }
   
-      log.debug(result.data.returnValues);
-      var authCode = result.data.returnValues.authCode;
-      if (authCode === '1') {
+      var authStatus = result.data.status;
+      if (authStatus === 'accepted') {
         log.debug('Authorization successful');
         req.session.save();
         return res.redirect('/mylandingpage.html');
       } else {
-        log.debug('Login was not successful: authCode = ' + authCode);
+        log.debug('Login was not successful: authStatus = ' + authStatus);
         req.flash('info', 'Transaction was not authorized');
         req.session.save();
         return res.redirect('/mytransferfunds.html');
@@ -118,10 +117,10 @@ function parseCode(code, res) {
 
 router.get('/registration_qr', (req, res) => {
   const { accountName } = req.query;
-  const { issuer, clientId, apiHost } = config.oidc;
+  const { issuer, appDID, apiHost } = config.oidc;
   const issuerURL = new URL(issuer);
   const location = issuerURL.protocol + '//' + issuerURL.host;
-  const requestString = `${location}/account/qr?appId=${clientId}&accountName=${accountName}&address=${issuerURL.host}`;
+  const requestString = `${location}/account/qr?appId=${appDID}&accountName=${accountName}&address=${issuerURL.host}`;
   log.debug(`QR code request string: '${requestString}'`);
   try {
     if (issuerURL.protocol === 'https:') {

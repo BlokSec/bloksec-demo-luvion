@@ -13,9 +13,9 @@ The site uses a configuration file, [config.js](config.js). The config uses envi
 # This is the location of the BlokSec instance to be used for consent API calls and will also be used to locate the BlokSec OpenID Connect IdP which will act as an issuer
 BLOKSEC_HOST=https://<bloksecEnvironment>.bloksec.io
 
-# These variables will be passed to the IdP to identify this OIDC client
-CLIENT_ID=123XX
-CLIENT_SECRET=456XX
+# These variables will be passed to the IdP to identify this OIDC application
+APP_DID=123XX
+APP_SECRET=456XX
 
 ```
 

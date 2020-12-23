@@ -66,16 +66,13 @@ router.route(['/', 'index.html'])
       auth_token: config.oidc.clientSecret,
       user: {
         name: req.body.name,
-        //name: 'Mike Gillan',
         email: req.body.email,
-        //email: 'mike.gillan@gmail.com',
         mobile_number: req.body.mobile,
-        //mobile_number: '+19054849941',
       },
       account: {
         name: req.body.email,
-        //name: 'mike.gillan_2020030101@gmail.com',
-        application: config.oidc.clientId,
+
+        appDID: config.oidc.appDID,
       },
     }
 
@@ -143,7 +140,7 @@ router.get('/girls.html', (req, res) => {
 
 //     try {
 //       const data = {
-//         clientId: config.oidc.clientId,
+//         appDID: config.oidc.appDID,
 //         accountName: user,
 //         requestSummary: 'Fashion Hub Authentication Request',
 //         requestDetails: `Please confirm that you are logging into Fashion Hub as ${user}`,

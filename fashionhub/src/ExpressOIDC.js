@@ -18,8 +18,8 @@ const logout = require('./logout');
 
 const {
   assertIssuer,
-  assertClientId,
-  assertClientSecret,
+  assertAppDID,
+  assertAppSecret,
   assertAppBaseUrl,
   assertRedirectUri
 } = require('./configuration_validation');
@@ -58,8 +58,8 @@ module.exports = class ExpressOIDC extends EventEmitter {
 
     const {
       issuer,
-      client_id,
-      client_secret,
+      appDID,
+      appSecret,
       appBaseUrl,
       loginRedirectUri,
       logoutRedirectUri,
@@ -69,11 +69,11 @@ module.exports = class ExpressOIDC extends EventEmitter {
     // Validate the issuer param
     assertIssuer(issuer, options.testing);
 
-    // Validate the client_id param
-    assertClientId(client_id);
+    // Validate the appDID param
+    assertAppDID(appDID);
 
     // Validate the client_secret param
-    assertClientSecret(client_secret);
+    assertAppSecret(appSecret);
 
     // Validate the appBaseUrl param
     assertAppBaseUrl(appBaseUrl);

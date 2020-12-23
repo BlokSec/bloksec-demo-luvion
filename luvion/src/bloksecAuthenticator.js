@@ -10,7 +10,7 @@ const authenticateUser = async (req, res, next) => {
 
   try {
     const data = {
-      appId: config.oidc.clientId,
+      appDID: config.oidc.appDID,
       accountName: req.userContext,
       requestSummary: 'Luvion Authentication Request',
       requestDetails: `Please confirm that you are attempting to log into Luvion with your account ${req.userContext}`,

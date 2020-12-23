@@ -1,8 +1,8 @@
 
 const BLOKSEC_HOST = process.env.BLOKSEC_HOST || 'http://localhost:3000';
 const ISSUER = process.env.ISSUER || `${BLOKSEC_HOST}/oidc`;
-const CLIENT_ID = process.env.CLIENT_ID || '5f87b8a0dda524c3d2c0ae66';
-const CLIENT_SECRET = process.env.CLIENT_SECRET || '03ee99faac974e259734f3832f3f85ae';
+const CLIENT_ID = process.env.CLIENT_ID || 'zNKhuDxXu3PpeGi7rLpHirgiQGaCS3tUXKTb';
+const CLIENT_SECRET = process.env.CLIENT_SECRET || 'RTtB8Aj5itRfF8AbtjXTGpSdw4n6nRdFifcJHpdU';
 const BASE_URL = process.env.BASE_URL || 'http://localhost:8080';
 const DISABLEHTTPSCHECK = process.env.DISABLEHTTPSCHECK ? true : false;
 const READ_TOKEN = process.env.READ_TOKEN || '80b9d9d7-ab13-4e7c-82dc-53c87affe065';
@@ -21,6 +21,7 @@ module.exports = {
   port: 8080,
   oidc: {
     clientId: CLIENT_ID,
+    appDID: CLIENT_ID, // note that the CLIENT_ID (OIDC language) is our application DID; we duplicate it as appDID for readability elsewhere in the code
     clientSecret: CLIENT_SECRET,
     issuer: ISSUER,
     appBaseUrl: BASE_URL,
