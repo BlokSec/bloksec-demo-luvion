@@ -32,15 +32,15 @@ router.route('/mytransferfunds.html')
   .post(ensureLoggedIn('login.html'), async (req, res, next) => {
     const transfer = req.body;
     log.debug(transfer);
-    const email = (req.userContext.userinfo ? req.userContext.userinfo.email : req.userContext);
-    log.debug(`User's email: ${email}`);
+    const username = (req.userContext.userinfo ? req.userContext.userinfo.preferred_username : req.userContext);
+    log.debug(`User's preferred_username: ${username}`);
     try {
       const data = {
-        verification_prompt: 'Transfer Funds Request',
+        verification_prompt: 'Funds Transfer Request',
         appDID: config.oidc.appDID,
         auth_token: config.secrets.writeToken,
-        accountName: email,
-        requestSummary: 'Luvion Transfer Funds Request',
+        accountName: username,
+        requestSummary: 'Secure funds transfer request confirmation from Luvion Bank',
         requestDetails: `Confirm transfer of ${transfer.amount} ${transfer.currency} to ${transfer.recipient}?`,
         nonce: Date.now().toString()
       };
