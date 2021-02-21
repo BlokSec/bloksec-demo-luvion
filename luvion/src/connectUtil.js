@@ -19,6 +19,11 @@ const querystring = require('querystring');
 const uuid = require('uuid');
 const bodyParser = require('body-parser');
 const logout = require('./logout');
+const util = require('util');
+const log4js = require('log4js');
+
+const log = log4js.getLogger('public-routes');
+log.level = 'debug';
 
 const connectUtil = module.exports;
 
@@ -34,7 +39,7 @@ connectUtil.createOIDCRouter = context => {
   const logoutPath = routes.logout.path;
   const logoutCallbackPath = routes.logoutCallback.path;
 
-  oidcRouter.use(loginPath, bodyParser.urlencoded({ extended: false}), connectUtil.createLoginHandler(context));
+  oidcRouter.use(loginPath, bodyParser.urlencoded({extended: true}), connectUtil.logRequest, connectUtil.createLoginHandler(context));
   oidcRouter.use(loginCallbackPath, connectUtil.createLoginCallbackHandler(context));
   oidcRouter.post(logoutPath, connectUtil.createLogoutHandler(context));
   oidcRouter.use(logoutCallbackPath, connectUtil.createLogoutCallbackHandler(context));
@@ -47,6 +52,12 @@ connectUtil.createOIDCRouter = context => {
   return oidcRouter;
 };
 
+connectUtil.logRequest = (req, res, next) => {
+  log.debug(`Request query:\n${util.inspect(req.query, false, null, true)}`);
+  log.debug(`Request body:\n${util.inspect(req.body, false, null, true)}`);
+  next();
+};
+
 connectUtil.createLoginHandler = context => {
   const passportHandler = passport.authenticate('oidc');
   const csrfProtection = csrf();
@@ -57,28 +68,26 @@ connectUtil.createLoginHandler = context => {
       return csrfProtection(req, res, viewHandler.bind(null, req, res, next));
     }
     if (req.method === 'POST') {
-      return csrfProtection(req, res, (err) => {
-        if (err) {
-          return next(err);
-        }
-        const nonce = uuid.v4();
-        const state = uuid.v4();
-        const params = {
-          nonce,
-          state,
-          client_id: context.options.client_id,
-          redirect_uri: context.options.loginRedirectUri,
-          scope: context.options.scope,
-          response_type: 'code',
-          sessionToken: req.body.sessionToken
-        };
-        req.session[context.options.sessionKey] = {
-          nonce,
-          state
-        };
-        const url = `${context.options.issuer}/auth?${querystring.stringify(params)}`;
-        return res.redirect(url);
-      });
+      log.debug('Login handler called');
+      const nonce = uuid.v4();
+      const state = uuid.v4();
+      const params = {
+        nonce,
+        state,
+        client_id: context.options.client_id,
+        redirect_uri: context.options.loginRedirectUri,
+        scope: context.options.scope,
+        response_type: 'code',
+        sessionToken: req.body.sessionToken,
+        login_hint: req.body.login_hint
+      };
+      req.session[context.options.sessionKey] = {
+        nonce,
+        state
+      };
+      console.log(`Params: ${util.inspect(params, false, null, true)}`);
+      const url = `${context.options.issuer}/auth?${querystring.stringify(params)}`;
+      return res.redirect(url);
     }
     return passportHandler.apply(this, arguments);
   };

@@ -61,7 +61,7 @@ router.route('/login.html')
     res.render('login');
   })
   .post((req, res, next) => {
-    log.debug(`POST /login.html: ${util.inspect(req.body, { showHidden: false, depth: null })}`);
+    log.debug(`POST /login.html: ${util.inspect(req.body, false, null, true)}`);
     passport.authenticate('local', async (err, user, info) => {
       if (info) {
         log.debug(`passport authentication failed: ${info}`);
@@ -211,7 +211,7 @@ router.route(['/sign-up.html'])
   //   }
   // }
   .post(async (req, res, next) => {
-    log.debug(req.body);
+    log.debug(`POST /sign-up.html:\n${util.inspect(req.body, false, null, true)}`);
 
     const data = {
       auth_token: config.oidc.clientSecret,
@@ -227,9 +227,10 @@ router.route(['/sign-up.html'])
       },
     }
 
-    log.debug(data);
+    log.debug(`Calling ${config.oidc.apiHost}/registration with data:\n${util.inspect(data, false, null, true)}`);
     const result = await axios.post(`${config.oidc.apiHost}/registration`, data);
-    log.debug(result);
+    log.debug(`Result: ${result.status} - ${result.statusText}`);
+    req.session.login_hint = req.body.username;
     res.render('sign-upsplash', {
       username: req.body.username
     });

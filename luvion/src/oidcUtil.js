@@ -70,7 +70,7 @@ oidcUtil.createClient = context => {
 oidcUtil.bootstrapPassportStrategy = context => {
   const oidcStrategy = new OpenIdClientStrategy({
     params: {
-      scope: context.options.scope
+      scope: context.options.scope,
     },
     sessionKey: context.options.sessionKey,
     client: context.client
