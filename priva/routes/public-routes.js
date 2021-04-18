@@ -48,14 +48,6 @@ router.get('/contact.html', (req, res) => {
   res.render('contact');
 });
 
-router.get('/features-1.html', (req, res) => {
-  res.render('features-1');
-});
-
-router.get('/features-2.html', (req, res) => {
-  res.render('features-2');
-});
-
 router.route('/login.html')
   .get((req, res) => {
     res.render('login');
@@ -191,9 +183,9 @@ router.ws('/interaction/updates', async (ws, req, next) => {
 
 });
 
-router.route(['/sign-up.html'])
+router.route(['/register.html'])
   .get((req, res) => {
-    res.render('sign-up');
+    res.render('register');
   })
   // POST to registration need to call the BlokSec /registration API
   // Sample POST body:
@@ -211,7 +203,7 @@ router.route(['/sign-up.html'])
   //   }
   // }
   .post(async (req, res, next) => {
-    log.debug(`POST /sign-up.html:\n${util.inspect(req.body, false, null, true)}`);
+    log.debug(`POST /register:\n${util.inspect(req.body, false, null, true)}`);
 
     const data = {
       auth_token: config.oidc.clientSecret,

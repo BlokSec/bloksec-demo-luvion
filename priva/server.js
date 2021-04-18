@@ -15,7 +15,6 @@ const ExpressOIDC = require('./src/ExpressOIDC');
 const config = require('./config.js');
 
 const templateDir = path.join(__dirname, 'views');
-const frontendDir = path.join(__dirname, 'assets');
 
 const oidc = new ExpressOIDC(Object.assign({
   issuer: config.oidc.issuer,
@@ -61,11 +60,11 @@ app.use(log4js.connectLogger(log, {
     { codes: [302, 303, 304], level: 'info' },
   ],
   format: (req, res, format) => format(':remote-addr - ":method :url" :status :content-length :response-time ms'),
-  nolog: ['\\/$', '^/assets/.'], // don't log request for images, css, etc. nor root requests (AWS healt check spams our logs)
+  nolog: ['\\/$', '^/css/.', '^/js/.', '^/images/.', '^/fonts/.'], // don't log request for images, css, etc. nor root requests (AWS healt check spams our logs)
 }));
 
 // Favicon middleware
-app.use(favicon(path.join(__dirname, 'assets', 'img', 'favicon.png')));
+// app.use(favicon(path.join(__dirname, 'assets', 'img', 'favicon.png')));
 
 // This middleware will check if user's cookie is still saved in browser and user is not set, then automatically log the user out.
 // This usually happens when you stop your express server after login, your cookie still remains saved in the browser.
@@ -77,7 +76,10 @@ app.use((req, res, next) => {
 });
 
 // This server uses mustache templates located in views/ and public assets in assets/
-app.use('/assets', express.static(frontendDir));
+app.use('/css', express.static(path.join(__dirname, 'css')));
+app.use('/images', express.static(path.join(__dirname, 'images')));
+app.use('/js', express.static(path.join(__dirname, 'js')));
+app.use('/fonts', express.static(path.join(__dirname, 'fonts')));
 app.set('view engine', 'ejs');
 app.set('views', templateDir);
 
@@ -102,6 +104,6 @@ const secureRouter = require('./routes/secure-routes');
 app.use(secureRouter);
 
 app.use((req, res) => {
-  res.status(404).render('error-404');
+  res.status(404).render('coming-soon');
 });
 
