@@ -48,6 +48,50 @@ router.get('/contact.html', (req, res) => {
   res.render('contact');
 });
 
+router.get('/careers.html', (req, res) => {
+  res.render('careers');
+});
+
+router.get('/why-choose-us.html', (req, res) => {
+  res.render('why-choose-us');
+});
+
+router.get('/insurance-1.html', (req, res) => {
+  res.render('insurance-1');
+});
+
+router.get('/insurance-2.html', (req, res) => {
+  res.render('insurance-2');
+});
+
+router.get('/insurance-details-1.html', (req, res) => {
+  res.render('insurance-details-1');
+});
+
+router.get('/insurance-details-2.html', (req, res) => {
+  res.render('insurance-details-2');
+});
+
+router.get('/insurance-details-3.html', (req, res) => {
+  res.render('insurance-details-3');
+});
+
+router.get('/insurance-details-4.html', (req, res) => {
+  res.render('insurance-details-4');
+});
+
+router.get('/insurance-details-5.html', (req, res) => {
+  res.render('insurance-details-5');
+});
+
+router.get('/insurance-details-6.html', (req, res) => {
+  res.render('insurance-details-6');
+});
+
+router.get('/login-2.html', (req, res) => {
+  res.render('login-2');
+});
+
 router.route('/login.html')
   .get((req, res) => {
     res.render('login');
@@ -56,7 +100,7 @@ router.route('/login.html')
     log.debug(`POST /login.html: ${util.inspect(req.body, false, null, true)}`);
     passport.authenticate('local', async (err, user, info) => {
       if (info) {
-        log.debug(`passport authentication failed: ${info}`);
+        log.debug(`passport authentication failed: ${util.inspect(info, false, 0, true)}`);
         req.flash('info', info);
         req.session.save();
         return res.redirect('/login.html');
@@ -89,7 +133,7 @@ router.route('/login.html')
             // Have to save the session manually because Express only invokes it at the end of an HTTP response (which doesn't happen with WebSockets)
             // See https://www.npmjs.com/package/express-session#sessionsavecallback
             req.session.save();
-            return res.redirect('/mylandingpage.html');
+            return res.redirect('/imember.html');
           });
         } else {
           log.error(error.message);
@@ -141,7 +185,7 @@ router.ws('/interaction/updates', async (ws, req, next) => {
             // Have to save the session manually because Express only invokes it at the end of an HTTP response (which doesn't happen with WebSockets)
             // See https://www.npmjs.com/package/express-session#sessionsavecallback
             req.session.save();
-            ws.send('/mylandingpage.html');
+            ws.send('/imember.html');
             //ws.send(JSON.stringify(event));
           }
         });
@@ -204,12 +248,13 @@ router.route(['/register.html'])
   // }
   .post(async (req, res, next) => {
     log.debug(`POST /register:\n${util.inspect(req.body, false, null, true)}`);
+    const nameSplit = parseName(req.body.name);
 
     const data = {
       auth_token: config.oidc.clientSecret,
       user: {
-        first_name: req.body.firstName,
-        last_name: req.body.lastName,
+        first_name: nameSplit.firstName,
+        last_name: nameSplit.lastName,
         email: req.body.email,
         mobile_number: req.body.mobile,
       },
@@ -223,9 +268,34 @@ router.route(['/register.html'])
     const result = await axios.post(`${config.oidc.apiHost}/registration`, data);
     log.debug(`Result: ${result.status} - ${result.statusText}`);
     req.session.login_hint = req.body.username;
-    res.render('sign-upsplash', {
+    res.render('login-2', {
       username: req.body.username
     });
   });
+
+function parseName(input) {
+  var fullName = input || "";
+  var result = {};
+
+  if (fullName.length > 0) {
+    var nameTokens = fullName.match(/[A-ZÁ-ÚÑÜ][a-zá-úñü]+|([aeodlsz]+\s+)+[A-ZÁ-ÚÑÜ][a-zá-úñü]+/g) || [];
+
+    if (nameTokens.length > 3) {
+      result.firstName = nameTokens.slice(0, 2).join(' ');
+    } else {
+      result.firstName = nameTokens.slice(0, 1).join(' ');
+    }
+
+    if (nameTokens.length > 2) {
+      result.lastName = nameTokens.slice(-2, -1).join(' ');
+      result.secondLastName = nameTokens.slice(-1).join(' ');
+    } else {
+      result.lastName = nameTokens.slice(-1).join(' ');
+      result.secondLastName = "";
+    }
+  }
+
+  return result;
+}
 
 module.exports = router;
