@@ -26,7 +26,7 @@ module.exports = {
     issuer: ISSUER,
     appBaseUrl: BASE_URL,
     apiHost: BLOKSEC_HOST,
-    response_type: 'code id_token',
+    response_type: 'code',
     scope: 'openid email profile',
     testing: {
       disableHttpsCheck: DISABLEHTTPSCHECK
