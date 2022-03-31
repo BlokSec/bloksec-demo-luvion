@@ -58,37 +58,45 @@
           <div class="d-table-cell">
             <div class="login-form">
               <div class="logo">
-               <br> <a href="index.html"><img src="assets/img/luvion_logo_black.svg" alt="image" width="100" height="100"></a>
+                <br> <a href="index.html"><img src="assets/img/luvion_logo_black.svg" alt="image" width="100"
+                    height="100"></a>
               </div>
 
               <h3>Welcome back</h3>
               <p>New to Luvion? <a href="sign-up.html">Sign up</a></p>
 
-              <form method="POST">
-                <% if (messages.info) { %>
+              <% if (messages.info) { %>
 
                 <div class="alert alert-danger" role="alert">
                   Error: <%= messages.info[0].message %>
                 </div>
 
                 <% } %>
-                <div class="form-group">
-                  <p><button type="submit" class="btn btn-primary">Secure Passwordless Login</button></p><br><br>
-                  <p><h4>OR</h4></p><br>
-                  <input name="username" id="username" placeholder="Your Luvion username" class="form-control">
-                </div>
+                  </form>
+                  <form action="/login" style="margin-top: 0px">
+                    <div class="form-group">
+                      <p><button type="submit" class="btn btn-primary">Secure Passwordless Login</button></p><br><br>
+                      <p>
+                      <h4>OR</h4>
+                      </p><br>
+                      <input name="username" id="username" placeholder="Your Luvion username" class="form-control">
+                    </div>
+                  </form>
 
-                <div class="form-group">
-                  <input type="password" name="password" id="password" placeholder="Your password" class="form-control">
-                </div>
 
-                <button type="submit" class="btn btn-primary">Login</button>
+                  <form method="POST">
+                    <div class="form-group">
+                      <input type="password" name="password" id="password" placeholder="Your password"
+                        class="form-control">
+                    </div>
 
-                <div class="forgot-password">
-                  <a href="#">Forgot Password?</a>
-                </div>
-              </form>
-              <!--<form>
+                    <button type="submit" class="btn btn-primary">Login</button>
+
+                    <div class="forgot-password">
+                      <a href="#">Forgot Password?</a>
+                    </div>
+                  </form>
+                  <!--<form>
                 <div class="connect-with-social">
                   <button type="submit" class="facebook"><i class="fab fa-facebook-square"></i> Log in with
                     Facebook</button>
